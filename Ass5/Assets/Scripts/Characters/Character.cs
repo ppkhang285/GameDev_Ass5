@@ -8,6 +8,11 @@ public class Character : MonoBehaviour
     [SerializeField]
     private CharacterStats characterStats;
 
+    public CharacterStats stats
+    {
+        get { return characterStats; }
+    }
+
     public float CurrentHP { get; set; }
     public float CurrentDamage { get; set; }
 

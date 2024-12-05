@@ -16,7 +16,7 @@ MonoBehaviour:
   damage: 0
   attackRange: 0
   attackSpeed: 0
-  movementSpeed: 0
+  movementSpeed: 5
+  jumpHeight: 2
   charType: 0
   ability: {fileID: 11400000, guid: 264bd9708c69d80409ef8ee45f15558d, type: 2}
-  sprite: {fileID: 0}
