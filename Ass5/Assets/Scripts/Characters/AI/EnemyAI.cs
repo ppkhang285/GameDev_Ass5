@@ -12,7 +12,7 @@ public class EnemyAI : MonoBehaviour
     public float DetectionRange { get; private set; } = 10f; // How far the enemy can detect the player
     public float WanderRadius { get; private set; } = 5f; // Radius for random wandering
     public float WanderInterval { get; private set; } = 3f; // Time between wander points
-    public float CurrentHP { get; private set; }
+    public float CurrentHP { get; set; }
 
     private NavMeshAgent agent;
     private float lastWanderTime;
@@ -20,7 +20,6 @@ public class EnemyAI : MonoBehaviour
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
-        CurrentHP = characterStats.hp;
     }
 
     void Update()
