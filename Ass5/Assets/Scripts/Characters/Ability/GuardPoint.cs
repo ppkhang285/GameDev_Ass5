@@ -11,18 +11,17 @@ public class GuardPoint : Ability
     private float shieldCooldown = 10;
     private float timeSinceShieldBreak;
 
-    private float duration = 10;
-    private float timeSinceActivate;
+    private float attackBuff = 1.2f;
+    public float damageReduced = 0.1f;
 
-    private float attackBuff;
-    public float damageReduced;
-
-    public GuardPoint() : base("Guard Point") { }
+    public GuardPoint() : base("Guard Point", 5, 5) { }
 
     public override void Activate(GameObject player)
     {
+        // TODO: add checking for activation condition
+        // if condition met, set timeSinceActivate to 0
         Character character = player.GetComponent<Character>();
-        if (timeSinceActivate <= duration) // Ability still has effect
+        if (timeSinceActivate < duration) // Ability still has effect
         {
             if (timeSinceActivate <= 0) // First call when ability is activated
             {
@@ -35,9 +34,7 @@ public class GuardPoint : Ability
         else
         {
             // Return player to normal state
-            character.CurrentDamage = character.Stats.damage;
-            character.Resistence = character.Stats.resistence;
-            timeSinceActivate = 0;
+            character.ResetStats();
         }
 
         // Other passive mechanics of the character

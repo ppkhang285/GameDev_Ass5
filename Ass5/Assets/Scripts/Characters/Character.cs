@@ -16,6 +16,8 @@ public class Character : MonoBehaviour
 
     public float CurrentHP { get; set; }
     public float CurrentDamage { get; set; }
+    public float AttackSpeed { get; set; }
+    public float MovementSpeed { get; set; }
 
     private float resistence;
     public float Resistence // Percentage of damage received, 0 = receive full damage, 1 = ignore all damage
@@ -36,11 +38,10 @@ public class Character : MonoBehaviour
         CurrentHP = characterStats.hp;
         CurrentDamage = characterStats.damage;
         Resistence = characterStats.resistence;
+        AttackSpeed = characterStats.attackSpeed;
+        MovementSpeed = characterStats.movementSpeed;
     }
 
-
-
-    // Update is called once per frame
     void Update()
     {
         TestAnim();
@@ -90,6 +91,14 @@ public class Character : MonoBehaviour
             animator.SetTrigger("dodge");
         }
 
+    }
+
+    public void ResetStats()
+    {
+        CurrentDamage = characterStats.damage;
+        Resistence = characterStats.resistence;
+        AttackSpeed = characterStats.attackSpeed;
+        MovementSpeed = characterStats.movementSpeed;
     }
 
     private void TakeDamage(float damage)
