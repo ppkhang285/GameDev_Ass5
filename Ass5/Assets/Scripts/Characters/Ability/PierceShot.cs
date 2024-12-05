@@ -7,7 +7,7 @@ public class PierceShot : Ability
 {
     public PierceShot() : base("Pierce Shot") { }
 
-    public override void Activate()
+    public override void Activate(GameObject player)
     {
 
     }

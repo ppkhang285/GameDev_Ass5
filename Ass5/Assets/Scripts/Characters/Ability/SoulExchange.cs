@@ -8,7 +8,7 @@ public class SoulExchange : Ability
     public Salvation salvation;
     public SoulExchange() : base("Soul Exchange") { }
 
-    public override void Activate()
+    public override void Activate(GameObject player)
     {
 
     }

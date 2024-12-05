@@ -3,70 +3,88 @@ using UnityEngine;
 [RequireComponent(typeof(CharacterController))]
 public class PlayerController : MonoBehaviour
 {
-    // Movement settings
-    public float MoveSpeed { get; private set; }
-    public float JumpHeight { get; private set; }
+    private float moveSpeed;
+    private float jumpHeight;
     private float gravity = -9.81f;
 
-    // Components
-    private Transform character;
+    private float attackCooldown;
+    private float timeSinceLastAttack;
+
+    private Ability ability;
+    private Animator animator;
+
     private CharacterController characterController;
     private Vector3 velocity;
 
-    // Is the player grounded?
     private bool isGrounded;
 
     void Start()
     {
-        // Get the CharacterController component
         characterController = GetComponent<CharacterController>();
-        MoveSpeed = GetComponent<Character>().stats.movementSpeed;
-        JumpHeight = GetComponent<Character>().stats.jumpHeight;
+        moveSpeed = GetComponent<Character>().Stats.movementSpeed;
+        jumpHeight = GetComponent<Character>().Stats.jumpHeight;
+        attackCooldown = GetComponent<Character>().Stats.attackCooldown;
+        timeSinceLastAttack = attackCooldown; // ready for attack 
+        ability = GetComponent<Character>().Stats.ability;
+        animator = GetComponent<Character>().animator;
     }
 
     void Update()
     {
-        // Handle player movement
+        ability.Activate(gameObject);
         HandleMovement();
-
-        // Handle jumping and gravity
+        HandleAttack();
         // HandleJumpingAndGravity();
     }
 
     private void HandleMovement()
     {
-        // Get input for movement (WASD or arrow keys)
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
 
-        // Create a vector for movement relative to the character's orientation
-        Vector3 move = transform.right * horizontal + transform.forward * vertical;
+        if (horizontal != 0 || vertical != 0)
+        {
+            Vector3 move = transform.right * horizontal + transform.forward * vertical;
+            characterController.Move(move * moveSpeed * Time.deltaTime);
 
-        // Apply movement
-        characterController.Move(move * MoveSpeed * Time.deltaTime);
+            animator.SetBool("isRunning", true);
+        }
+        else
+            animator.SetBool("isRunning", false);
     }
 
     private void HandleJumpingAndGravity()
     {
-        // Check if the player is grounded using CharacterController's built-in property
         isGrounded = characterController.isGrounded;
 
-        // If the player is grounded and moving downward, stop downward velocity
         if (isGrounded && velocity.y < 0)
         {
-            velocity.y = -2f; // Small value to keep the character grounded
+            velocity.y = -2f; 
         }
 
-        // If the player is grounded and the jump button is pressed, apply jump force
         if (isGrounded && Input.GetKeyDown(KeyCode.Space))
         {
-            velocity.y = Mathf.Sqrt(JumpHeight * -2f * gravity); // Jump formula
+            velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity); 
         }
 
-        // Apply gravity
         velocity.y += gravity * Time.deltaTime;
 
-        // Move the player based on calculated velocity
         characterController.Move(velocity * Time.deltaTime);
+    }
+
+    private void HandleAttack()
+    {
+        timeSinceLastAttack += Time.deltaTime;
+
+        if (Input.GetMouseButtonDown(0) && timeSinceLastAttack >= attackCooldown)
+        {
+            animator.SetTrigger("attack");
+            Character character = gameObject.GetComponent<Character>();
+            if (character.Stats.charType == CharacterType.Knight)
+            {
+                character.Resistence = character.Stats.resistence; // Attack auto stops blocking
+            }
+            timeSinceLastAttack = 0f;
+        }
     }
 }

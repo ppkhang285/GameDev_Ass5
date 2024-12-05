@@ -5,13 +5,11 @@ using UnityEngine.UI;
 
 public class Character : MonoBehaviour
 {
-    // Start is called before the first frame update
+    public Animator animator { get; private set; }
+
     [SerializeField]
     private CharacterStats characterStats;
-
-    private Animator animator;
-
-    public CharacterStats stats
+    public CharacterStats Stats
     {
         get { return characterStats; }
     }
@@ -19,12 +17,25 @@ public class Character : MonoBehaviour
     public float CurrentHP { get; set; }
     public float CurrentDamage { get; set; }
 
+    private float resistence;
+    public float Resistence // Percentage of damage received, 0 = receive full damage, 1 = ignore all damage
+    {
+        get { return resistence;  }
+        set
+        {
+            if (value < 0) resistence = 0;
+            else if (value > 1) resistence = 1;
+            else resistence = value;
+        }
+    } 
+
     void Start()
     {
         animator = GetComponent<Animator>();
 
         CurrentHP = characterStats.hp;
         CurrentDamage = characterStats.damage;
+        Resistence = characterStats.resistence;
     }
 
 
@@ -38,25 +49,24 @@ public class Character : MonoBehaviour
 
     public void TestAnim()
     {
+        //if (Input.GetKey(KeyCode.Space))
+        //{
+        //    animator.SetBool("isRunning", true);
+        //}
 
-        if (Input.GetKey(KeyCode.Space))
-        {
-            animator.SetBool("isRunning", true);
-        }
+        //if (Input.GetKeyUp(KeyCode.Space))
+        //{
+        //    animator.SetBool("isRunning", false);
+        //}
 
-        if (Input.GetKeyUp(KeyCode.Space))
-        {
-            animator.SetBool("isRunning", false);
-        }
+        //if (Input.GetMouseButtonDown(0)) {
+        //    animator.SetTrigger("attack");
+        //}
 
-        if (Input.GetMouseButtonDown(0)) {
-            animator.SetTrigger("attack");
-        }
-
-        if (Input.GetKeyDown(KeyCode.Z))
-        {
-            animator.SetTrigger("hit");
-        }
+        //if (Input.GetKeyDown(KeyCode.Z))
+        //{
+        //    animator.SetTrigger("hit");
+        //}
 
         if (Input.GetKeyDown(KeyCode.A))
         {
@@ -81,6 +91,17 @@ public class Character : MonoBehaviour
         }
 
     }
-   
 
+    private void TakeDamage(float damage)
+    {
+        animator.SetTrigger("hit");
+        CurrentHP -= damage * (1 - resistence);
+        if (CurrentHP <= 0)
+            Die();
+    }
+
+    private void Die()
+    {
+
+    }
 }

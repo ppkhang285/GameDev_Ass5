@@ -11,5 +11,5 @@ public abstract class Ability : ScriptableObject
     {
         AbilityName = abilityName;
     }
-    public abstract void Activate(); 
+    public abstract void Activate(GameObject player);
 }

@@ -7,7 +7,7 @@ public class FullBurst : Ability
 {
     public FullBurst() : base("Full Burst") { }
 
-    public override void Activate()
+    public override void Activate(GameObject player)
     {
 
     }

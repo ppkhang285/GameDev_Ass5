@@ -26,6 +26,8 @@ public class CharacterStats : ScriptableObject
     public float attackSpeed;
     public float movementSpeed;
     public float jumpHeight;
+    public float attackCooldown;
+    public float resistence;
     public CharacterType charType;
     public Ability ability;
 }

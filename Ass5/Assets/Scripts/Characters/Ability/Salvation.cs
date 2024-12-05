@@ -7,7 +7,7 @@ public class Salvation : Ability
 {
     public Salvation() : base("Salvation") { }
 
-    public override void Activate()
+    public override void Activate(GameObject player)
     {
 
     }
