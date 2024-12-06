@@ -9,63 +9,72 @@ public class GuardPoint : Ability
     private float shieldEndurance = 10;
 
     private float shieldCooldown = 10;
-    private float timeSinceShieldBreak;
+    private float timeSinceShieldBreak = 0;
 
     private float attackBuff = 1.2f;
-    public float damageReduced = 0.1f;
+    public float damageReduced = 0.1f; // Damage reduced when blocking
+    private bool isBlocking = false;
 
     public GuardPoint() : base("Guard Point", 5, 5) { }
 
-    public override void Activate(GameObject player)
+    public override bool CheckActivateCondition()
     {
         // TODO: add checking for activation condition
-        // if condition met, set timeSinceActivate to 0
+        return true;
+    }
+
+    public override void Activate(GameObject player)
+    {
         Character character = player.GetComponent<Character>();
-        if (timeSinceActivate < duration) // Ability still has effect
-        {
-            if (timeSinceActivate <= 0) // First call when ability is activated
-            {
-                shieldEndurance = shieldMaxEndurance;
-                character.CurrentDamage *= attackBuff;
-                character.Resistence = 1;
-            }
-            timeSinceActivate += Time.deltaTime;
-        } 
-        else
-        {
-            // Return player to normal state
-            character.ResetStats();
-        }
+        shieldEndurance = shieldMaxEndurance;
+        character.CurrentDamage *= attackBuff;
+        character.Resistence = 1;
+    }
+
+    public override void Passive(GameObject player)
+    {
+        base.Passive(player);
 
         // Other passive mechanics of the character
+        UpdateResistence(player);
         HandleBlocking(player);
         RecoverShield();
     }
 
-    private void HandleBlocking(GameObject player)
+    public override void Attack(GameObject player)
+    {
+        base.Attack(player);
+        isBlocking = false;
+    }
+
+    private void UpdateResistence(GameObject player)
     {
         Character character = player.GetComponent<Character>();
-        if (shieldEndurance > 0) // Shield is usable
-        {
-            if (Input.GetMouseButtonDown(1))
-                character.Resistence = character.Resistence + damageReduced;  
-            else
-                character.Resistence = character.Stats.resistence;
-        } 
+        if (isBlocking)
+            character.Resistence = character.Stats.resistence + damageReduced;
         else
             character.Resistence = character.Stats.resistence;
     }
 
+    private void HandleBlocking(GameObject player)
+    {
+        if (Input.GetMouseButtonDown(1) && shieldEndurance > 0) // RMB pressed and shield is usable
+            isBlocking = true;
+        else
+            isBlocking = false;
+    }
+
     private void RecoverShield()
     {
-        if (timeSinceShieldBreak >= shieldCooldown && shieldEndurance <= 0) // Recover shield if shield not usable
+        if (shieldEndurance <= 0) // If shield is not usable
         {
-            timeSinceShieldBreak = 0;
-            shieldEndurance = shieldMaxEndurance;
-        }
-        else
-        {
-            timeSinceShieldBreak += Time.deltaTime;
+            if (timeSinceShieldBreak >= shieldCooldown) // Recover shield 
+            {
+                timeSinceShieldBreak = 0;
+                shieldEndurance = shieldMaxEndurance;
+            }
+            else
+                timeSinceShieldBreak += Time.deltaTime;
         }
     }
 
@@ -73,6 +82,6 @@ public class GuardPoint : Ability
     {
         shieldEndurance -= amount;
         if (shieldEndurance <= 0)
-            timeSinceShieldBreak = shieldCooldown; // Start shield cooldown
+            timeSinceShieldBreak = 0; // Shield breaks, start shield cooldown
     }
 }

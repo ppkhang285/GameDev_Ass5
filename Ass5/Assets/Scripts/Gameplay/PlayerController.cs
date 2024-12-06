@@ -7,11 +7,11 @@ public class PlayerController : MonoBehaviour
     private float jumpHeight;
     private float gravity = -9.81f;
 
-    private float attackCooldown;
-    private float timeSinceLastAttack;
+    public float attackCooldown;
+    public float timeSinceLastAttack;
 
-    private Ability ability;
-    private Animator animator;
+    private Ability ability;  // Special mechanics of the character
+    public Animator animator;
 
     private CharacterController characterController;
     private Vector3 velocity;
@@ -31,7 +31,7 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        ability.Activate(gameObject);
+        ability.Passive(gameObject);
         HandleMovement();
         HandleAttack();
         // HandleJumpingAndGravity();
@@ -77,14 +77,6 @@ public class PlayerController : MonoBehaviour
         timeSinceLastAttack += Time.deltaTime;
 
         if (Input.GetMouseButtonDown(0) && timeSinceLastAttack >= attackCooldown)
-        {
-            animator.SetTrigger("attack");
-            Character character = gameObject.GetComponent<Character>();
-            if (character.Stats.charType == CharacterType.Knight)
-            {
-                character.Resistence = character.Stats.resistence; // Attack auto stops blocking
-            }
-            timeSinceLastAttack = 0f;
-        }
+            ability.Attack(gameObject);
     }
 }

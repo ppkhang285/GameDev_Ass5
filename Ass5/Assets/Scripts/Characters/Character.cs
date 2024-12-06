@@ -20,9 +20,9 @@ public class Character : MonoBehaviour
     public float MovementSpeed { get; set; }
 
     private float resistence;
-    public float Resistence // Percentage of damage received, 0 = receive full damage, 1 = ignore all damage
+    public float Resistence // Percentage of damage reduced, 0 = receive full damage, 1 = ignore all damage
     {
-        get { return resistence;  }
+        get { return resistence; }
         set
         {
             if (value < 0) resistence = 0;
