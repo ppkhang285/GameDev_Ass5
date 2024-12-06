@@ -10,7 +10,6 @@ public class SoulExchange : Ability
     private float hpPerCast;
     public float manaRefill;
 
-    private bool isSoulExchange = false;
     private float timeForSalvation = 10;
 
     private float attackBuff = 1.5f;
@@ -19,77 +18,70 @@ public class SoulExchange : Ability
     public Salvation salvation;
     private Salvation salvationAbility;
 
-    public SoulExchange() : base("Soul Exchange", 10) { }
+    public SoulExchange(Character character) : base(character, "Soul Exchange", 10) { }
 
-    private void OnEnable()
+    public override void Initialize(Character character)
     {
+        base.Initialize(character);
         if (salvation != null)
         {
             salvationAbility = Instantiate(salvation);
-            salvationAbility.Initialize(this);
+            salvationAbility.Initialize(character);
         }
         else
             salvationAbility = null;
     }
 
-    public override void Activate(GameObject player)
+    public override void Activate()
     {
-        isSoulExchange = true;
-        timeSinceActivate = 0;
-        Character character = player.GetComponent<Character>();
+        base.Activate();
         character.CurrentDamage *= attackBuff;
         character.AttackRange *= attackRangeBuff;
         // Debug.Log("Ability " + AbilityName + " lasts for " + duration + " seconds");
     }
 
-    public override void Deactivate(GameObject player)
+    public override void Passive()
     {
-        base.Deactivate(player);
-        isSoulExchange = false;
-    }
-
-    public override void Passive(GameObject player)
-    {
-        if (Input.GetKeyDown(KeyCode.F) && !salvationAbility.isSalvation) // Press F to switch on/off soul exchange mode if not in salvation mode
+        if (Input.GetKeyDown(KeyCode.F) && !salvationAbility.abilityIsActivated) // Press F to switch on/off soul exchange mode if not in salvation mode
         {
-            if (isSoulExchange)
-                Deactivate(player);
+            if (abilityIsActivated)
+                Deactivate();
             else
-                Activate(player);
+                Activate();
         }
 
         // Other passive mechanics of the character
         RefillMana();
-        if (isSoulExchange)
-            InSoulExchange(player);
-        else if (salvationAbility.isSalvation)
-            salvationAbility.Passive(player);
+        if (abilityIsActivated)
+            InSoulExchange();
+        else if (salvationAbility.abilityIsActivated)
+            salvationAbility.Passive();
     }
 
-    public override void Attack(GameObject player)
+    public override void Attack()
     {
-        if (isSoulExchange) // In soul exchange mode
+        if (abilityIsActivated) // In soul exchange mode
         {
-            base.Attack(player);
-            player.GetComponent<Character>().CurrentHP -= hpPerCast;
+            base.Attack();
+            character.CurrentHP -= hpPerCast;
         }
         else
         {
             if (currentMana >= manaPerCast) // Enough mana to cast
             {
-                base.Attack(player);
+                base.Attack();
                 currentMana -= manaPerCast;
             }
         }
     }
 
-    private void InSoulExchange(GameObject player)
+    private void InSoulExchange()
     {
         timeSinceActivate += Time.deltaTime;
         if (timeSinceActivate >= timeForSalvation) // Has been in soul exchange mode for enough time
         {
-            Deactivate(player);
-            salvationAbility.isSalvation = true;
+            Deactivate();
+            salvationAbility.abilityIsActivated = true;
         }
     }
 

@@ -5,62 +5,79 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Abilities/GuardPoint")]
 public class GuardPoint : Ability
 {
-    private float shieldMaxEndurance = 10;
-    private float shieldEndurance = 10;
+    private float shieldMaxEndurance;
+    private float shieldEndurance;
 
-    private float shieldCooldown = 10;
-    private float timeSinceShieldBreak = 0;
+    private float shieldCooldown;
+    private float timeSinceShieldBreak;
 
-    private float attackBuff = 1.2f;
-    private float damageReduced = 0.1f; // Damage reduced when blocking
-    private bool isBlocking = false;
+    private float attackBuff;
+    private float damageReduced; // Damage reduced when blocking
 
-    public GuardPoint() : base("Guard Point", 5) { }
+    private bool isBlocking;
+    private float timeSinceBlock;
+    private float timeForGuardPoint;
+
+    public GuardPoint(Character character) : base(character, "Guard Point", 5) { }
+
+    public override void Initialize(Character character)
+    {
+        base.Initialize(character);
+        shieldMaxEndurance = 10;
+        shieldEndurance = 10;
+        shieldCooldown = 10;
+        timeSinceShieldBreak = 0;
+        attackBuff = 1.2f;
+        damageReduced = 0.1f;
+        isBlocking = false;
+        timeSinceBlock = 0;
+        timeForGuardPoint = 0.5f;
+    }
 
     public override bool CheckActivateCondition()
     {
-        // TODO: add checking for activation condition
-        return true;
+        return (timeSinceBlock <= timeForGuardPoint) & !abilityIsActivated;
     }
 
-    public override void Activate(GameObject player)
+    public override void Activate()
     {
-        Character character = player.GetComponent<Character>();
+        base.Activate();
         shieldEndurance = shieldMaxEndurance;
+        timeSinceBlock = timeForGuardPoint;
         character.CurrentDamage *= attackBuff;
         character.Resistence = 1;
     }
 
-    public override void Passive(GameObject player)
+    public override void Passive()
     {
-        base.Passive(player);
-
+        base.Passive();
         // Other passive mechanics of the character
-        UpdateResistence(player);
-        HandleBlocking(player);
+        UpdateResistence();
+        HandleBlocking();
         RecoverShield();
     }
 
-    public override void Attack(GameObject player)
+    public override void Attack()
     {
-        base.Attack(player);
+        base.Attack();
         isBlocking = false;
     }
 
-    private void UpdateResistence(GameObject player)
+    private void UpdateResistence()
     {
-        Character character = player.GetComponent<Character>();
         if (isBlocking)
             character.Resistence = 1 - (1 - character.Stats.resistence) * (1 - damageReduced);
         else
             character.Resistence = character.Stats.resistence;
     }
 
-    private void HandleBlocking(GameObject player)
+    private void HandleBlocking()
     {
-        if (Input.GetMouseButton(1) && shieldEndurance > 0) // RMB pressed and shield is usable
+        timeSinceBlock += Time.deltaTime;
+        if (Input.GetMouseButtonDown(1) && shieldEndurance > 0) // RMB pressed and shield is usable
         {
             isBlocking = true;
+            timeSinceBlock = 0;
         }
         else
             isBlocking = false;
@@ -80,10 +97,15 @@ public class GuardPoint : Ability
         }
     }
 
-    public void ReduceShieldEndurance(float amount)
+    private void ReduceShieldEndurance(float amount)
     {
         shieldEndurance -= amount;
         if (shieldEndurance <= 0)
             timeSinceShieldBreak = 0; // Shield breaks, start shield cooldown
+    }
+
+    public override void TakeDamage(float damage)
+    {
+        ReduceShieldEndurance(damage);
     }
 }

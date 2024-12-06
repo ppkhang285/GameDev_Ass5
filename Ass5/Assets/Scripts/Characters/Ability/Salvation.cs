@@ -10,48 +10,39 @@ public class Salvation : Ability
     private float speedBuff = 1.2f;
     private float damageReduce = 0.1f;
 
-    public bool isSalvation = false;
-
     private SoulExchange soulExchange;
-    public Salvation() : base("Salvation", 10) { }
+    public Salvation(Character character) : base(character, "Salvation", 10) { }
 
-    public void Initialize(SoulExchange soulExchange)
+    public override void Initialize(Character character)
     {
-        this.soulExchange = soulExchange;
+        base.Initialize(character);
+        soulExchange = (SoulExchange)character.ability;
     }
 
-    public override bool CheckActivateCondition()
+    public override void Activate()
     {
-        return isSalvation;
-    }
-
-    public override void Activate(GameObject player)
-    {
-        isSalvation = true;
-        Character character = player.GetComponent<Character>();
+        base.Activate();
         character.MovementSpeed *= speedBuff;
         character.Resistence = 1 - (1 - character.Resistence) * (1 - damageReduce);
         soulExchange.manaRefill *= manaRefillBuff;
     }
 
-    public override void Deactivate(GameObject player)
+    public override void Deactivate()
     {
-        base.Deactivate(player);
-        isSalvation = false;
+        base.Deactivate();
         soulExchange.manaRefill /= manaRefillBuff;
     }
 
-    public override void Passive(GameObject player)
+    public override void Passive()
     {
-        base.Passive(player);
+        base.Passive();
 
         // Other passive mechanics of the character
-        Heal(player);
+        Heal();
     }
 
-    private void Heal(GameObject player)
+    private void Heal()
     {
-        Character character = player.GetComponent<Character>();
         character.CurrentHP += healAmount;
     }
 }

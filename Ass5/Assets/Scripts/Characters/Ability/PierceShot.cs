@@ -16,45 +16,43 @@ public class PierceShot : Ability
     private float attackBuff = 1.5f;
     private float speedBuff = 1.2f;
 
-    private bool isPiercing = false;
-
-    public PierceShot() : base("Pierce Shot", 10) { }
+    public PierceShot(Character character) : base(character, "Pierce Shot", 10) { }
 
     public override bool CheckActivateCondition()
     {
-        return targetHits >= hitsForPierceShot;
+        return (targetHits >= hitsForPierceShot) & !abilityIsActivated;
     }
 
-    public override void Activate(GameObject player)
+    public override void Activate()
     {
-        Character character = player.GetComponent<Character>();
+        base.Activate();
         character.CurrentDamage *= attackBuff;
         character.MovementSpeed *= speedBuff;
     }
 
-    public override void Deactivate(GameObject player)
+    public override void Deactivate()
     {
-        base.Deactivate(player);
+        base.Deactivate();
         currentAmmo = ammoPerRound; // Refill all ammo
     }
 
-    public override void Passive(GameObject player)
+    public override void Passive()
     {
-        base.Passive(player);
+        base.Passive();
 
         // Other passive mechanics of the character
         ReloadAmmo();
     }
 
-    public override void Attack(GameObject player)
+    public override void Attack()
     {
-        if (isPiercing) // In pierce shot mode
-            base.Attack(player);
+        if (abilityIsActivated) // In pierce shot mode
+            base.Attack();
         else
         {
             if (currentAmmo > 0) // Still has ammo
             {
-                base.Attack(player);
+                base.Attack();
                 currentAmmo--;
                 if (hitTarget)
                     targetHits++;

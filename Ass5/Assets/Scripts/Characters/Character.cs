@@ -28,6 +28,7 @@ public class Character : MonoBehaviour
     public float AttackSpeed { get; set; }
     public float MovementSpeed { get; set; }
     public float AttackRange { get; set; }
+    public float AttackCooldown { get; set; }
     public Ability ability;
 
     private float resistence;
@@ -40,7 +41,9 @@ public class Character : MonoBehaviour
             else if (value > 1) resistence = 1;
             else resistence = value;
         }
-    } 
+    }
+
+    public float TimeSinceLastAttack;
 
     void Awake()
     {
@@ -49,17 +52,24 @@ public class Character : MonoBehaviour
         Stats = Instantiate(characterStats);
 
         ability = Stats.GetInstantiatedAbility();
+        ability.Initialize(this);
+
         CurrentHP = Stats.hp;
         CurrentDamage = Stats.damage;
         Resistence = Stats.resistence;
         AttackSpeed = Stats.attackSpeed;
         MovementSpeed = Stats.movementSpeed;
         AttackRange = Stats.attackRange;
+        AttackCooldown = Stats.attackCooldown;
+        TimeSinceLastAttack = AttackCooldown;
     }
 
     void Update()
     {
         TestAnim();
+        ability.Passive();
+        Move();
+        Attack();
     }
 
 
@@ -119,20 +129,37 @@ public class Character : MonoBehaviour
     }
 
 
-    public void Move(bool isMoving)
+    public void Move()
     {
-        animator.SetBool("isRunning", isMoving);
+        float horizontal = Input.GetAxis("Horizontal");
+        float vertical = Input.GetAxis("Vertical");
+
+        if (horizontal != 0 || vertical != 0)
+        {
+            animator.SetBool("isRunning", true);
+            ability.Move();
+        }
+        else
+        {
+            animator.SetBool("isRunning", false);
+        }
     }
 
     public void Attack()
     {
-        animator.SetTrigger("attack");
+        TimeSinceLastAttack += Time.deltaTime;
+
+        if (Input.GetMouseButtonDown(0) && TimeSinceLastAttack >= AttackCooldown)
+        {
+            ability.Attack();
+        }       
     }
 
-    private void TakeDamage(float damage)
+    public void TakeDamage(float damage)
     {
         animator.SetTrigger("hit");
         CurrentHP -= damage * (1 - resistence);
+        ability.TakeDamage(damage);
         if (CurrentHP <= 0)
             Die();
     }

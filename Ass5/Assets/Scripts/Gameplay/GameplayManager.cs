@@ -18,7 +18,7 @@ public class GameplayManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        GameObject prefab = Resources.Load<GameObject>("Prefabs/Characters/Wizard");
+        GameObject prefab = Resources.Load<GameObject>("Prefabs/Characters/Knight");
         player = Instantiate(prefab);
     }
     

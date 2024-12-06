@@ -26,40 +26,40 @@ public class FullBurst : Ability
     private float rageIncreasePerHit = 10f;
     private float rageDecreaseSpeed = 0.2f;
 
-    public FullBurst() : base("Full Burst", 10) { }
+    public FullBurst(Character character) : base(character, "Full Burst", 10) { }
 
     public override bool CheckActivateCondition()
     {
-        return rage >= maxRage;
+        return (rage >= maxRage) & !abilityIsActivated;
     }
 
-    public override void Activate(GameObject player)
+    public override void Activate()
     {
-        Character character = player.GetComponent<Character>();
+        base.Activate();
         character.CurrentDamage *= attackBuff;
         character.AttackSpeed *= attackSpeedBuff;
         character.MovementSpeed *= speedBuff;
         character.Resistence *= resistenceDebuff;
     }
 
-    public override void Deactivate(GameObject player)
+    public override void Deactivate()
     {
-        base.Deactivate(player);
+        base.Deactivate();
         Rage = 0;
     }
 
-    public override void Passive(GameObject player)
+    public override void Passive()
     {
-        base.Passive(player);
+        base.Passive();
 
         // Other passive mechanics of the character
         DecreaseRage();
-        BuffAttack(player);
+        BuffAttack();
     }
 
-    public override void Attack(GameObject player)
+    public override void Attack()
     {
-        base.Attack(player);
+        base.Attack();
         if (hitTarget) // Just hit an anemy
             Rage += rageIncreasePerHit;
     }
@@ -69,10 +69,10 @@ public class FullBurst : Ability
         Rage -= rageDecreaseSpeed;
     }
 
-    private void BuffAttack(GameObject player)
+    private void BuffAttack()
     {
-        Character character = player.GetComponent<Character>();
-        character.CurrentDamage *= (1 + rage/100);
+        if (!abilityIsActivated)
+            character.CurrentDamage *= (1 + rage/100);
     }
 
 }

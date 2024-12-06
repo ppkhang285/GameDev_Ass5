@@ -9,12 +9,22 @@ public abstract class Ability : ScriptableObject
     protected float duration;
     protected float timeSinceActivate;
     protected bool hitTarget;
+    public bool abilityIsActivated;
 
-    protected Ability(string abilityName, float duration) 
+    protected Character character;
+
+    protected Ability(Character character, string abilityName, float duration) 
     {
+        this.character = character;
         AbilityName = abilityName;
         this.duration = duration;
-        this.timeSinceActivate = duration;
+        timeSinceActivate = duration;
+    }
+
+    public virtual void Initialize(Character character)
+    {
+        this.character = character;
+        abilityIsActivated = false;
     }
 
     public virtual bool CheckActivateCondition()
@@ -22,38 +32,46 @@ public abstract class Ability : ScriptableObject
         return true;
     }
 
-    public virtual void Activate(GameObject player)
+    public virtual void Activate()
+    {
+        abilityIsActivated = true;
+        timeSinceActivate = 0;
+    }
+
+    public virtual void Deactivate()
+    {
+        abilityIsActivated = false;
+        character.ResetStats(); // Return player to normal state
+    }
+
+    public virtual void Passive()
+    {
+        hitTarget = false;
+        if (CheckActivateCondition())
+            Activate();
+        if (timeSinceActivate < duration) // Ability still has effect
+            timeSinceActivate += Time.deltaTime;
+        else
+            Deactivate();
+    }
+
+    // Some abilities may affect player's move mechanics
+    public virtual void Move()
     {
         return;
     }
 
-    public virtual void Deactivate(GameObject player)
+    // Some abilities may affect player's attack mechanics
+    public virtual void Attack() 
     {
-        Character character = player.GetComponent<Character>();
-        character.ResetStats(); // Return player to normal state
-    }
-
-    public virtual void Passive(GameObject player)
-    {
-        hitTarget = false;
-        if (CheckActivateCondition())
-            timeSinceActivate = 0;
-        if (timeSinceActivate < duration) // Ability still has effect
-        {
-            if (timeSinceActivate <= 0) // First call when ability is activated
-                Activate(player);
-            timeSinceActivate += Time.deltaTime;
-        }
-        else
-            Deactivate(player);
-    }
-
-    public virtual void Attack(GameObject player) // Default attack logic
-    {
-        PlayerController playerController = player.GetComponent<PlayerController>();
-        Character character = player.GetComponent<Character>();
-        character.Attack();
-        playerController.timeSinceLastAttack = 0;
+        character.animator.SetTrigger("attack");
+        character.TimeSinceLastAttack = 0;
         // TODO: add logic to check if hit target
+    }
+
+    // Some abilities may affect player's take damage mechanics
+    public virtual void TakeDamage(float damage) 
+    {
+        return;
     }
 }
