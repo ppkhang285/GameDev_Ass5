@@ -24,11 +24,11 @@ public class Character : MonoBehaviour
         }
     }
 
-    public float CurrentDamage { get; set; }
-    public float AttackSpeed { get; set; }
-    public float MovementSpeed { get; set; }
-    public float AttackRange { get; set; }
-    public float AttackCooldown { get; set; }
+    public float CurrentDamage;
+    public float AttackSpeed;
+    public float MovementSpeed;
+    public float AttackRange;
+    public float AttackCooldown;
     public Ability ability;
 
     private float resistence;
@@ -158,8 +158,8 @@ public class Character : MonoBehaviour
     public void TakeDamage(float damage)
     {
         animator.SetTrigger("hit");
-        CurrentHP -= damage * (1 - resistence);
         ability.TakeDamage(damage);
+        CurrentHP -= damage * (1 - resistence);
         if (CurrentHP <= 0)
             Die();
     }
