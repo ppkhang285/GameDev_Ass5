@@ -30,4 +30,13 @@ public class CharacterStats : ScriptableObject
     public float resistence;
     public CharacterType charType;
     public Ability ability;
+
+    public Ability GetInstantiatedAbility()
+    {
+        if (ability != null)
+        {
+            return Instantiate(ability);
+        }
+        return null; 
+    }
 }

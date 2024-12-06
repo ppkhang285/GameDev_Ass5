@@ -10,11 +10,11 @@ public abstract class Ability : ScriptableObject
     protected float timeSinceActivate;
     protected bool hitTarget;
 
-    protected Ability(string abilityName, float duration, float timeSinceActivate) 
+    protected Ability(string abilityName, float duration) 
     {
         AbilityName = abilityName;
         this.duration = duration;
-        this.timeSinceActivate = timeSinceActivate;
+        this.timeSinceActivate = duration;
     }
 
     public virtual bool CheckActivateCondition()

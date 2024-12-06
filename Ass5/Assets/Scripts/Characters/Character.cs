@@ -10,15 +10,25 @@ public class Character : MonoBehaviour
 
     [SerializeField]
     private CharacterStats characterStats;
-    public CharacterStats Stats
-    {
-        get { return characterStats; }
+    public CharacterStats Stats;
+
+    private float hp;
+    public float CurrentHP 
+    { 
+        get { return hp; }
+        set 
+        {
+            if (value < 0) hp = 0;
+            else if (value > Stats.hp) hp = Stats.hp;
+            else hp = value;
+        }
     }
 
-    public float CurrentHP { get; set; }
     public float CurrentDamage { get; set; }
     public float AttackSpeed { get; set; }
     public float MovementSpeed { get; set; }
+    public float AttackRange { get; set; }
+    public Ability ability;
 
     private float resistence;
     public float Resistence // Percentage of damage reduced, 0 = receive full damage, 1 = ignore all damage
@@ -32,15 +42,19 @@ public class Character : MonoBehaviour
         }
     } 
 
-    void Start()
+    void Awake()
     {
         animator = GetComponent<Animator>();
 
-        CurrentHP = characterStats.hp;
-        CurrentDamage = characterStats.damage;
-        Resistence = characterStats.resistence;
-        AttackSpeed = characterStats.attackSpeed;
-        MovementSpeed = characterStats.movementSpeed;
+        Stats = Instantiate(characterStats);
+
+        ability = Stats.GetInstantiatedAbility();
+        CurrentHP = Stats.hp;
+        CurrentDamage = Stats.damage;
+        Resistence = Stats.resistence;
+        AttackSpeed = Stats.attackSpeed;
+        MovementSpeed = Stats.movementSpeed;
+        AttackRange = Stats.attackRange;
     }
 
     void Update()
@@ -51,7 +65,7 @@ public class Character : MonoBehaviour
 
     public void TestAnim()
     {
-        animator.SetBool("isRunning", false);
+        //animator.SetBool("isRunning", false);
         //if (Input.GetKey(KeyCode.Space))
         //{
         //    animator.SetBool("isRunning", true);
@@ -101,11 +115,13 @@ public class Character : MonoBehaviour
         Resistence = characterStats.resistence;
         AttackSpeed = characterStats.attackSpeed;
         MovementSpeed = characterStats.movementSpeed;
+        AttackRange = characterStats.attackRange;
     }
 
-    public void Move()
+
+    public void Move(bool isMoving)
     {
-        animator.SetBool("isRunning", true);
+        animator.SetBool("isRunning", isMoving);
     }
 
     public void Attack()

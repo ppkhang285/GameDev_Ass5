@@ -11,14 +11,14 @@ public class PierceShot : Ability
     private float timeSinceReload = 3;
 
     private int targetHits = 0;
-    private int hitsForPierceShot = 5; // number of hits needed for pierce shot 
+    private int hitsForPierceShot = 5; // number of hits needed to activate pierce shot 
 
     private float attackBuff = 1.5f;
     private float speedBuff = 1.2f;
 
     private bool isPiercing = false;
 
-    public PierceShot() : base("Pierce Shot", 10, 10) { }
+    public PierceShot() : base("Pierce Shot", 10) { }
 
     public override bool CheckActivateCondition()
     {

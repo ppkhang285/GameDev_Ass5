@@ -12,10 +12,10 @@ public class GuardPoint : Ability
     private float timeSinceShieldBreak = 0;
 
     private float attackBuff = 1.2f;
-    public float damageReduced = 0.1f; // Damage reduced when blocking
+    private float damageReduced = 0.1f; // Damage reduced when blocking
     private bool isBlocking = false;
 
-    public GuardPoint() : base("Guard Point", 5, 5) { }
+    public GuardPoint() : base("Guard Point", 5) { }
 
     public override bool CheckActivateCondition()
     {
@@ -58,8 +58,10 @@ public class GuardPoint : Ability
 
     private void HandleBlocking(GameObject player)
     {
-        if (Input.GetMouseButtonDown(1) && shieldEndurance > 0) // RMB pressed and shield is usable
+        if (Input.GetMouseButton(1) && shieldEndurance > 0) // RMB pressed and shield is usable
+        {
             isBlocking = true;
+        }
         else
             isBlocking = false;
     }

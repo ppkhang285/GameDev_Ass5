@@ -26,7 +26,7 @@ public class FullBurst : Ability
     private float rageIncreasePerHit = 10f;
     private float rageDecreaseSpeed = 0.2f;
 
-    public FullBurst() : base("Full Burst", 10, 10) { }
+    public FullBurst() : base("Full Burst", 10) { }
 
     public override bool CheckActivateCondition()
     {
@@ -54,6 +54,7 @@ public class FullBurst : Ability
 
         // Other passive mechanics of the character
         DecreaseRage();
+        BuffAttack(player);
     }
 
     public override void Attack(GameObject player)
@@ -67,4 +68,11 @@ public class FullBurst : Ability
     {
         Rage -= rageDecreaseSpeed;
     }
+
+    private void BuffAttack(GameObject player)
+    {
+        Character character = player.GetComponent<Character>();
+        character.CurrentDamage *= (1 + rage/100);
+    }
+
 }

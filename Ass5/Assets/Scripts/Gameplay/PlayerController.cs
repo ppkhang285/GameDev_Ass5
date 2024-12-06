@@ -26,7 +26,7 @@ public class PlayerController : MonoBehaviour
         jumpHeight = character.Stats.jumpHeight;
         attackCooldown = character.Stats.attackCooldown;
         timeSinceLastAttack = attackCooldown; // ready for attack 
-        ability = character.Stats.ability;
+        ability = character.ability;
     }
 
     void Update()
@@ -46,7 +46,10 @@ public class PlayerController : MonoBehaviour
         {
             Vector3 move = transform.right * horizontal + transform.forward * vertical;
             characterController.Move(move * moveSpeed * Time.deltaTime);
-            character.Move();
+            character.Move(true);
+        } else
+        {
+            character.Move(false);
         }
 
     }
