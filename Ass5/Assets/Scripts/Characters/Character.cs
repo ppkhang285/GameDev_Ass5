@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+// Class for playable characters
 public class Character : MonoBehaviour
 {
     public Animator animator { get; private set; }
@@ -50,6 +51,7 @@ public class Character : MonoBehaviour
 
     public void TestAnim()
     {
+        animator.SetBool("isRunning", false);
         //if (Input.GetKey(KeyCode.Space))
         //{
         //    animator.SetBool("isRunning", true);
@@ -99,6 +101,16 @@ public class Character : MonoBehaviour
         Resistence = characterStats.resistence;
         AttackSpeed = characterStats.attackSpeed;
         MovementSpeed = characterStats.movementSpeed;
+    }
+
+    public void Move()
+    {
+        animator.SetBool("isRunning", true);
+    }
+
+    public void Attack()
+    {
+        animator.SetTrigger("attack");
     }
 
     private void TakeDamage(float damage)

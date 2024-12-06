@@ -11,22 +11,22 @@ public class PlayerController : MonoBehaviour
     public float timeSinceLastAttack;
 
     private Ability ability;  // Special mechanics of the character
-    public Animator animator;
 
     private CharacterController characterController;
     private Vector3 velocity;
+    private Character character;
 
     private bool isGrounded;
 
     void Start()
     {
         characterController = GetComponent<CharacterController>();
-        moveSpeed = GetComponent<Character>().Stats.movementSpeed;
-        jumpHeight = GetComponent<Character>().Stats.jumpHeight;
-        attackCooldown = GetComponent<Character>().Stats.attackCooldown;
+        character = GetComponent<Character>();
+        moveSpeed = character.Stats.movementSpeed;
+        jumpHeight = character.Stats.jumpHeight;
+        attackCooldown = character.Stats.attackCooldown;
         timeSinceLastAttack = attackCooldown; // ready for attack 
-        ability = GetComponent<Character>().Stats.ability;
-        animator = GetComponent<Character>().animator;
+        ability = character.Stats.ability;
     }
 
     void Update()
@@ -46,11 +46,9 @@ public class PlayerController : MonoBehaviour
         {
             Vector3 move = transform.right * horizontal + transform.forward * vertical;
             characterController.Move(move * moveSpeed * Time.deltaTime);
-
-            animator.SetBool("isRunning", true);
+            character.Move();
         }
-        else
-            animator.SetBool("isRunning", false);
+
     }
 
     private void HandleJumpingAndGravity()

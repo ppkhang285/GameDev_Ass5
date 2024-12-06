@@ -6,7 +6,7 @@ using UnityEngine;
 public class SoulExchange : Ability
 {
     public Salvation salvation;
-    public SoulExchange() : base("Soul Exchange") { }
+    public SoulExchange() : base("Soul Exchange", 10, 10) { }
 
     public override void Activate(GameObject player)
     {

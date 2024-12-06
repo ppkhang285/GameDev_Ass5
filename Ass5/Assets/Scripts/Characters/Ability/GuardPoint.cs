@@ -51,7 +51,7 @@ public class GuardPoint : Ability
     {
         Character character = player.GetComponent<Character>();
         if (isBlocking)
-            character.Resistence = character.Stats.resistence + damageReduced;
+            character.Resistence = 1 - (1 - character.Stats.resistence) * (1 - damageReduced);
         else
             character.Resistence = character.Stats.resistence;
     }

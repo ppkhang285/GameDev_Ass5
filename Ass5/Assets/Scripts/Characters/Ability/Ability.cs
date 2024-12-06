@@ -51,7 +51,8 @@ public abstract class Ability : ScriptableObject
     public virtual void Attack(GameObject player) // Default attack logic
     {
         PlayerController playerController = player.GetComponent<PlayerController>();
-        playerController.animator.SetTrigger("attack");
+        Character character = player.GetComponent<Character>();
+        character.Attack();
         playerController.timeSinceLastAttack = 0;
         // TODO: add logic to check if hit target
     }
