@@ -28,12 +28,17 @@ public class Arrow
         Position += Direction * speed * deltaTime;
 
         if (OutOfRange())
-            IsActive = false;
+            Deactivate();
     }
 
     private bool OutOfRange()
     {
         return (Position - startPosition).magnitude > range;
+    }
+
+    public void Deactivate()
+    {
+        IsActive = false;
     }
 }
 

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Berserker : Character
 {
-    private float maxRage = 100;
+    private float maxRage;
     private float rage;
     public float Rage
     {
@@ -12,13 +12,13 @@ public class Berserker : Character
         set
         {
             if (value < 0) rage = 0;
-            else if (value > 100) rage = 100;
+            else if (value > maxRage) rage = maxRage;
             else rage = value;
         }
     }
 
-    private float rageIncreasePerHit = 10f;
-    private float rageDecreaseSpeed = 0.2f;
+    private float rageIncreasePerHit;
+    private float rageDecreaseSpeed;
 
     protected override void Awake()
     {

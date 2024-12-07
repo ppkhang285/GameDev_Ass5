@@ -4,8 +4,20 @@ using UnityEngine;
 
 public class Wizard : Character
 {
+    private float maxMana;
     private float manaPerCast;
-    private float currentMana;
+
+    private float mana;
+    private float CurrentMana
+    {
+        get { return mana; }
+        set
+        {
+            if (value < 0) mana = 0;
+            else if (value > maxMana) mana = maxMana;
+            else mana = value;
+        }
+    }
     private float hpPerCast;
     public float manaRefill;
 
@@ -20,6 +32,11 @@ public class Wizard : Character
         ability.Initialize(this);
         salvationAbility = (ability as SoulExchange).salvationAbility;
 
+        maxMana = 100;
+        manaPerCast = 15;
+        CurrentMana = 0;
+        hpPerCast = 1;
+        manaRefill = 0.2f;
         timeForSalvation = 10;
     }
 
@@ -50,16 +67,16 @@ public class Wizard : Character
         }
         else
         {
-            if (currentMana >= manaPerCast) // Enough mana to cast
+            if (CurrentMana >= manaPerCast) // Enough mana to cast
             {
                 base.Attack();
-                currentMana -= manaPerCast;
+                CurrentMana -= manaPerCast;
             }
         }
     }
 
     private void RefillMana()
     {
-        currentMana += manaRefill;
+        CurrentMana += manaRefill;
     }
 }

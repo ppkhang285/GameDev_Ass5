@@ -121,4 +121,13 @@ public class Character : MonoBehaviour
         MovementSpeed = Stats.movementSpeed;
         AttackRange = Stats.attackRange;
     }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Arrow"))
+        {
+            float damage = ArrowManager.Instance.NotifyArrowHit(other.gameObject);
+            TakeDamage(damage);
+        }
+    }
 }

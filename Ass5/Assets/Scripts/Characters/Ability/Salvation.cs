@@ -6,9 +6,9 @@ using UnityEngine;
 public class Salvation : Ability
 {
     private float healAmount;
-    private float manaRefillBuff = 1.2f;
-    private float speedBuff = 1.2f;
-    private float damageReduced = 0.1f;
+    private float manaRefillBuff;
+    private float speedBuff;
+    private float damageReduced;
 
     private Wizard wizardCharacter;
 
@@ -18,6 +18,11 @@ public class Salvation : Ability
     {
         base.Initialize(character);
         wizardCharacter = character as Wizard;
+
+        healAmount = 0.1f; 
+        manaRefillBuff = 1.2f;
+        speedBuff = 1.2f;
+        damageReduced = 0.1f;
     }
 
     public override void Activate()
