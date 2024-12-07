@@ -124,10 +124,20 @@ public class Character : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Arrow"))
+        if (other.CompareTag("Missile"))
         {
             float damage = ArrowManager.Instance.NotifyArrowHit(other.gameObject);
             TakeDamage(damage);
+        } 
+        else if (other.CompareTag("Melee"))
+        {
+            GameObject damagerObject = other.gameObject.transform.root.gameObject;
+            Character damager = damagerObject.GetComponent<Character>();
+            TakeDamage(damager.CurrentDamage);
+            if (damager.Stats.charType == CharacterType.Berserker)
+            {
+                (damager as Berserker).HitTarget();
+            }
         }
     }
 }

@@ -63,6 +63,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Knight
       objectReference: {fileID: 0}
+    - target: {fileID: 3862085102932151524, guid: aba73808a70008d408fd88c900c6fa36, type: 3}
+      propertyPath: m_TagString
+      value: Melee
+      objectReference: {fileID: 0}
     - target: {fileID: 5866666021909216657, guid: aba73808a70008d408fd88c900c6fa36, type: 3}
       propertyPath: m_Controller
       value: 
@@ -110,7 +114,6 @@ MonoBehaviour:
   TimeSinceLastAttack: 0
   timeSinceBlock: 0
   timeForGuardPoint: 0
-  ability: {fileID: 0}
 --- !u!1 &7020236571470901318 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3862085102932151524, guid: aba73808a70008d408fd88c900c6fa36, type: 3}
@@ -124,7 +127,7 @@ MeshCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7020236571470901318}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 4
   m_Convex: 1
