@@ -8,36 +8,35 @@ public class Salvation : Ability
     private float healAmount;
     private float manaRefillBuff = 1.2f;
     private float speedBuff = 1.2f;
-    private float damageReduce = 0.1f;
+    private float damageReduced = 0.1f;
 
-    private SoulExchange soulExchange;
-    public Salvation(Character character) : base(character, "Salvation", 10) { }
+    private Wizard wizardCharacter;
+
+    public Salvation(Wizard character) : base(character, "Salvation", 10) { }
 
     public override void Initialize(Character character)
     {
         base.Initialize(character);
-        soulExchange = (SoulExchange)character.ability;
+        wizardCharacter = character as Wizard;
     }
 
     public override void Activate()
     {
         base.Activate();
-        character.MovementSpeed *= speedBuff;
-        character.Resistence = 1 - (1 - character.Resistence) * (1 - damageReduce);
-        soulExchange.manaRefill *= manaRefillBuff;
+        wizardCharacter.MovementSpeed *= speedBuff;
+        wizardCharacter.Resistence = 1 - (1 - character.Resistence) * (1 - damageReduced);
+        wizardCharacter.manaRefill *= manaRefillBuff;
     }
 
     public override void Deactivate()
     {
         base.Deactivate();
-        soulExchange.manaRefill /= manaRefillBuff;
+        wizardCharacter.manaRefill /= manaRefillBuff;
     }
 
     public override void Passive()
     {
         base.Passive();
-
-        // Other passive mechanics of the character
         Heal();
     }
 

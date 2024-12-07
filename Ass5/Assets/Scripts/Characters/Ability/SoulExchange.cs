@@ -5,20 +5,15 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Abilities/SoulExchange")]
 public class SoulExchange : Ability
 {
-    private float manaPerCast;
-    private float currentMana;
-    private float hpPerCast;
-    public float manaRefill;
-
-    private float timeForSalvation = 10;
-
-    private float attackBuff = 1.5f;
-    private float attackRangeBuff = 1.5f;
+    private float attackBuff;
+    private float attackRangeBuff;
 
     public Salvation salvation;
-    private Salvation salvationAbility;
+    public Salvation salvationAbility;
 
-    public SoulExchange(Character character) : base(character, "Soul Exchange", 10) { }
+    private Wizard wizardCharacter;
+
+    public SoulExchange(Wizard character) : base(character, "Soul Exchange", 10) { }
 
     public override void Initialize(Character character)
     {
@@ -30,63 +25,31 @@ public class SoulExchange : Ability
         }
         else
             salvationAbility = null;
+        wizardCharacter = character as Wizard;
+
+        attackBuff = 1.5f;
+        attackRangeBuff = 1.5f;
     }
 
     public override void Activate()
     {
         base.Activate();
-        character.CurrentDamage *= attackBuff;
-        character.AttackRange *= attackRangeBuff;
-        // Debug.Log("Ability " + AbilityName + " lasts for " + duration + " seconds");
+        wizardCharacter.CurrentDamage *= attackBuff;
+        wizardCharacter.AttackRange *= attackRangeBuff;
     }
 
     public override void Passive()
     {
-        if (Input.GetKeyDown(KeyCode.F) && !salvationAbility.abilityIsActivated) // Press F to switch on/off soul exchange mode if not in salvation mode
-        {
-            if (abilityIsActivated)
-                Deactivate();
-            else
-                Activate();
-        }
-
-        // Other passive mechanics of the character
-        RefillMana();
         if (abilityIsActivated)
-            InSoulExchange();
-        else if (salvationAbility.abilityIsActivated)
-            salvationAbility.Passive();
-    }
-
-    public override void Attack()
-    {
-        if (abilityIsActivated) // In soul exchange mode
         {
-            base.Attack();
-            character.CurrentHP -= hpPerCast;
-        }
-        else
-        {
-            if (currentMana >= manaPerCast) // Enough mana to cast
+            timeSinceActivate += Time.deltaTime;
+            if (timeSinceActivate >= wizardCharacter.timeForSalvation) // Has been in soul exchange mode for enough time
             {
-                base.Attack();
-                currentMana -= manaPerCast;
+                Deactivate();
+                salvationAbility.abilityIsActivated = true;
             }
         }
-    }
-
-    private void InSoulExchange()
-    {
-        timeSinceActivate += Time.deltaTime;
-        if (timeSinceActivate >= timeForSalvation) // Has been in soul exchange mode for enough time
-        {
-            Deactivate();
-            salvationAbility.abilityIsActivated = true;
-        }
-    }
-
-    private void RefillMana()
-    {
-        currentMana += manaRefill;
+        else if (salvationAbility.abilityIsActivated)
+            salvationAbility.Passive();
     }
 }

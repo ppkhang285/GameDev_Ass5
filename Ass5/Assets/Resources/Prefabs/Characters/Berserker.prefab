@@ -12,9 +12,7 @@ GameObject:
   - component: {fileID: 7482447275799923293}
   - component: {fileID: 7482447275799923292}
   - component: {fileID: 7482447275799923295}
-  - component: {fileID: 7482447275799923294}
-  - component: {fileID: 6096761817321437302}
-  - component: {fileID: -7526335418296517019}
+  - component: {fileID: 6831285649120090743}
   m_Layer: 0
   m_Name: Berserker
   m_TagString: Untagged
@@ -101,7 +99,7 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &7482447275799923294
+--- !u!114 &6831285649120090743
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -110,41 +108,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 7482447275799923289}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e43c1b88b450be140bc300c58143f356, type: 3}
+  m_Script: {fileID: 11500000, guid: 80721c522f061074db44efe73ec8592c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   characterStats: {fileID: 11400000, guid: 167e7a9b36c5eb248859e3b5947b58bf, type: 2}
   Stats: {fileID: 0}
+  CurrentDamage: 0
+  AttackSpeed: 0
+  MovementSpeed: 0
+  AttackRange: 0
+  AttackCooldown: 0
   ability: {fileID: 0}
---- !u!143 &6096761817321437302
-CharacterController:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7482447275799923289}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Height: 2
-  m_Radius: 0.5
-  m_SlopeLimit: 45
-  m_StepOffset: 0.3
-  m_SkinWidth: 0.08
-  m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &-7526335418296517019
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7482447275799923289}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5dfe67ef45f457f45a11424d3f0dcdce, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  attackCooldown: 0
-  timeSinceLastAttack: 0
+  TimeSinceLastAttack: 0

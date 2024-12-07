@@ -9,7 +9,7 @@ public class Character : MonoBehaviour
     public Animator animator { get; private set; }
 
     [SerializeField]
-    private CharacterStats characterStats;
+    protected CharacterStats characterStats;
     public CharacterStats Stats;
 
     private float hp;
@@ -45,7 +45,7 @@ public class Character : MonoBehaviour
 
     public float TimeSinceLastAttack;
 
-    void Awake()
+    protected virtual void Awake()
     {
         animator = GetComponent<Animator>();
 
@@ -64,108 +64,61 @@ public class Character : MonoBehaviour
         TimeSinceLastAttack = AttackCooldown;
     }
 
-    void Update()
+    protected virtual void Update()
     {
-        TestAnim();
-        ability.Passive();
-        Move();
-        Attack();
+        TimeSinceLastAttack += Time.deltaTime;
+        if (ability != null)
+            ability.Passive();
+        HandleInput();
     }
 
-
-    public void TestAnim()
-    {
-        //animator.SetBool("isRunning", false);
-        //if (Input.GetKey(KeyCode.Space))
-        //{
-        //    animator.SetBool("isRunning", true);
-        //}
-
-        //if (Input.GetKeyUp(KeyCode.Space))
-        //{
-        //    animator.SetBool("isRunning", false);
-        //}
-
-        //if (Input.GetMouseButtonDown(0)) {
-        //    animator.SetTrigger("attack");
-        //}
-
-        //if (Input.GetKeyDown(KeyCode.Z))
-        //{
-        //    animator.SetTrigger("hit");
-        //}
-
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            animator.SetFloat("x", -1);
-        }
-        if (Input.GetKeyDown(KeyCode.D))
-        {
-            animator.SetFloat("x", 1);
-        }
-        if (Input.GetKeyDown(KeyCode.W))
-        {
-            animator.SetFloat("y", 1);
-        }
-        if (Input.GetKeyDown(KeyCode.S))
-        {
-            animator.SetFloat("y", -1);
-        }
-
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            animator.SetTrigger("dodge");
-        }
-
-    }
-
-    public void ResetStats()
-    {
-        CurrentDamage = characterStats.damage;
-        Resistence = characterStats.resistence;
-        AttackSpeed = characterStats.attackSpeed;
-        MovementSpeed = characterStats.movementSpeed;
-        AttackRange = characterStats.attackRange;
-    }
-
-
-    public void Move()
+    protected virtual void HandleInput()
     {
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
-
         if (horizontal != 0 || vertical != 0)
         {
             animator.SetBool("isRunning", true);
-            ability.Move();
+            Move(horizontal, vertical);
         }
         else
-        {
             animator.SetBool("isRunning", false);
-        }
-    }
-
-    public void Attack()
-    {
-        TimeSinceLastAttack += Time.deltaTime;
 
         if (Input.GetMouseButtonDown(0) && TimeSinceLastAttack >= AttackCooldown)
-        {
-            ability.Attack();
-        }       
+            Attack();
     }
 
-    public void TakeDamage(float damage)
+    public virtual void Move(float horizontal, float vertical)
+    {
+        Vector3 direction = new Vector3(horizontal, 0, vertical) * MovementSpeed * Time.deltaTime;
+        transform.Translate(direction, Space.Self);
+    }
+
+    public virtual void Attack()
+    {
+        TimeSinceLastAttack = 0;
+        animator.SetTrigger("attack");
+    }
+
+    public virtual void TakeDamage(float damage)
     {
         animator.SetTrigger("hit");
-        ability.TakeDamage(damage);
         CurrentHP -= damage * (1 - resistence);
         if (CurrentHP <= 0)
             Die();
     }
 
-    private void Die()
+    public virtual void Die()
     {
+        
+    }
 
+    public void ResetStats()
+    {
+        CurrentDamage = Stats.damage;
+        Resistence = Stats.resistence;
+        AttackSpeed = Stats.attackSpeed;
+        MovementSpeed = Stats.movementSpeed;
+        AttackRange = Stats.attackRange;
     }
 }

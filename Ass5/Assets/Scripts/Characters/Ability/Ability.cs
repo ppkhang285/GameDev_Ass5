@@ -8,7 +8,6 @@ public abstract class Ability : ScriptableObject
 
     protected float duration;
     protected float timeSinceActivate;
-    protected bool hitTarget;
     public bool abilityIsActivated;
 
     protected Character character;
@@ -25,11 +24,7 @@ public abstract class Ability : ScriptableObject
     {
         this.character = character;
         abilityIsActivated = false;
-    }
-
-    public virtual bool CheckActivateCondition()
-    {
-        return true;
+        timeSinceActivate = duration;
     }
 
     public virtual void Activate()
@@ -46,32 +41,9 @@ public abstract class Ability : ScriptableObject
 
     public virtual void Passive()
     {
-        hitTarget = false;
-        if (CheckActivateCondition())
-            Activate();
-        if (timeSinceActivate < duration) // Ability still has effect
+        if (timeSinceActivate < duration)
             timeSinceActivate += Time.deltaTime;
         else
             Deactivate();
-    }
-
-    // Some abilities may affect player's move mechanics
-    public virtual void Move()
-    {
-        return;
-    }
-
-    // Some abilities may affect player's attack mechanics
-    public virtual void Attack() 
-    {
-        character.animator.SetTrigger("attack");
-        character.TimeSinceLastAttack = 0;
-        // TODO: add logic to check if hit target
-    }
-
-    // Some abilities may affect player's take damage mechanics
-    public virtual void TakeDamage(float damage) 
-    {
-        return;
     }
 }
