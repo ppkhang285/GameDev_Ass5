@@ -29,8 +29,13 @@ public class Berserker : Character
 
         maxRage = 100;
         Rage = 0;
+<<<<<<< Updated upstream
         rageIncreasePerHit = 10f;
         rageDecreaseSpeed = 0.2f;
+=======
+        rageIncreasePerHit = 0.25f;
+        rageDecreaseSpeed = 2 * Time.deltaTime;
+>>>>>>> Stashed changes
     }
 
     // Update is called once per frame

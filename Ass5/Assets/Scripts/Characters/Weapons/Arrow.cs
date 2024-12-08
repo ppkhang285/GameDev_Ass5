@@ -9,6 +9,8 @@ public class Arrow
     private float range;
     private float speed;
     public Archer archer;
+    public bool isPierce;
+    public float damage;
 
     public Arrow(Archer archer, Vector3 startPosition, Vector3 direction, float range)
     {
@@ -19,6 +21,8 @@ public class Arrow
         speed = 3;
         this.range = range;
         IsActive = true;
+        isPierce = archer.ability.abilityIsActivated;
+        damage = archer.CurrentDamage;
     }
 
     public void UpdatePosition(float deltaTime)

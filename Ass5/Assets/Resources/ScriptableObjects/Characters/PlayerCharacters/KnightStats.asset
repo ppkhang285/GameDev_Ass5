@@ -15,9 +15,16 @@ MonoBehaviour:
   hp: 0
   damage: 0
   attackRange: 0
+<<<<<<< Updated upstream
   attackSpeed: 0
   movementSpeed: 5
   jumpHeight: 2
   attackCooldown: 1
+=======
+  speed: 5
+  jumpHeight: 0
+  attackCooldown: 1
+  resistence: 0.05
+>>>>>>> Stashed changes
   charType: 0
   ability: {fileID: 11400000, guid: 264bd9708c69d80409ef8ee45f15558d, type: 2}

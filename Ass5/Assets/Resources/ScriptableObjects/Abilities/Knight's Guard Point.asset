@@ -13,4 +13,9 @@ MonoBehaviour:
   m_Name: Knight's Guard Point
   m_EditorClassIdentifier: 
   AbilityName: Guard Point
+<<<<<<< Updated upstream
   Cooldown: 0
+=======
+  duration: 1
+  abilityIsActivated: 0
+>>>>>>> Stashed changes

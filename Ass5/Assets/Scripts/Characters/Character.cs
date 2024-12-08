@@ -44,6 +44,7 @@ public class Character : MonoBehaviour
     }
 
     public float TimeSinceLastAttack;
+    private bool isDead;
 
     protected virtual void Awake()
     {
@@ -62,10 +63,13 @@ public class Character : MonoBehaviour
         AttackRange = Stats.attackRange;
         AttackCooldown = Stats.attackCooldown;
         TimeSinceLastAttack = AttackCooldown;
+        isDead = false;
     }
 
     protected virtual void Update()
     {
+        if (isDead)
+            return;
         TimeSinceLastAttack += Time.deltaTime;
         if (ability != null)
             ability.Passive();
@@ -90,7 +94,11 @@ public class Character : MonoBehaviour
 
     public virtual void Move(float horizontal, float vertical)
     {
+<<<<<<< Updated upstream
         Vector3 direction = new Vector3(horizontal, 0, vertical) * MovementSpeed * Time.deltaTime;
+=======
+        Vector3 direction = new Vector3(horizontal, 0, vertical).normalized * Speed * Time.deltaTime;
+>>>>>>> Stashed changes
         transform.Translate(direction, Space.Self);
     }
 
@@ -110,7 +118,9 @@ public class Character : MonoBehaviour
 
     public virtual void Die()
     {
-        
+        animator.SetTrigger("dead");
+        isDead = true;
+        gameObject.GetComponent<Collider>().enabled = false;
     }
 
     public void ResetStats()

@@ -77,6 +77,6 @@ public class Wizard : Character
 
     private void RefillMana()
     {
-        CurrentMana += manaRefill;
+        CurrentMana += manaRefill * Time.deltaTime;
     }
 }
