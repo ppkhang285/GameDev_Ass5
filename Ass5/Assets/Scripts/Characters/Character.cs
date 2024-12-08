@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Photon.Pun;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,7 +12,7 @@ public class Character : MonoBehaviour
     [SerializeField]
     protected CharacterStats characterStats;
     public CharacterStats Stats;
-
+    private PhotonView photonView;
     private float hp;
     public float CurrentHP 
     { 
@@ -47,6 +48,7 @@ public class Character : MonoBehaviour
 
     protected virtual void Awake()
     {
+        photonView = GetComponent<PhotonView>();
         animator = GetComponent<Animator>();
 
         Stats = Instantiate(characterStats);
@@ -69,7 +71,10 @@ public class Character : MonoBehaviour
         TimeSinceLastAttack += Time.deltaTime;
         if (ability != null)
             ability.Passive();
-        HandleInput();
+        if (photonView.IsMine)
+        {
+            HandleInput();
+        }
     }
 
     protected virtual void HandleInput()
