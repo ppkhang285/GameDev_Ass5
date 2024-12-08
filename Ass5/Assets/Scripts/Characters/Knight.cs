@@ -4,17 +4,18 @@ using UnityEngine;
 
 public class Knight : Character
 {
-    private float shieldMaxEndurance;
-    private float shieldEndurance;
+    private float shieldMaxEndurance; 
+    private float shieldEndurance; 
 
-    private float shieldCooldown;
+    private float shieldCooldown; 
     private float timeSinceShieldBreak;
 
-    private bool isBlocking;
+    private bool isBlocking; 
     public float timeSinceBlock;
-    public float timeForGuardPoint;
+    public float timeForGuardPoint; 
 
-    private float damageReduced; // Damage reduced when blocking
+    private float shieldResistenceBuff; // Resistence buff when using shield to block
+    private float shieldSpeedReduced; // Speed reduced when using shield to block
 
     protected override void Awake()
     {
@@ -23,21 +24,21 @@ public class Knight : Character
         ability = Stats.GetInstantiatedAbility() as GuardPoint;
         ability.Initialize(this);
 
-        shieldMaxEndurance = 10;
+        shieldMaxEndurance = 25;
         shieldEndurance = shieldMaxEndurance;
-        shieldCooldown = 10;
+        shieldCooldown = 8;
         timeSinceShieldBreak = 0;
         isBlocking = false;
         timeSinceBlock = 0;
         timeForGuardPoint = 0.5f;
+        shieldResistenceBuff = 1f / 3;
+        shieldSpeedReduced = 4f / 3;
     }
 
     protected override void Update()
     {
         timeSinceBlock += Time.deltaTime;
         base.Update();
-        if ((timeSinceBlock <= timeForGuardPoint) & !ability.abilityIsActivated)
-            ability.Activate();
         RecoverShield();
     }
 
@@ -50,12 +51,16 @@ public class Knight : Character
             {
                 timeSinceBlock = 0;
                 Block();
-            } 
+            }
             else if (Input.GetMouseButton(1))
                 Block();
         }
         else
+        {
             isBlocking = false;
+            AttackCooldown = Stats.attackCooldown;
+        }
+
     }
 
     public override void Attack()
@@ -66,18 +71,28 @@ public class Knight : Character
 
     public override void TakeDamage(float damage)
     {
-        float newDamge = damage;
+        float newDamage = damage;
         if (isBlocking)
         {
-            newDamge = damage * (1 - damageReduced);
-            ReduceShieldEndurance(damage * damageReduced);
+            newDamage = damage * (1 - shieldResistenceBuff);
+            ReduceShieldEndurance(damage);
         }
-        base.TakeDamage(newDamge);
+        base.TakeDamage(newDamage);
+    }
+
+    protected override void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Missile") || other.CompareTag("Melee"))
+        {
+            if ((timeSinceBlock <= timeForGuardPoint) & !ability.abilityIsActivated)
+                ability.Activate();
+        } 
     }
 
     private void Block()
     {
         isBlocking = true;
+        AttackCooldown *= shieldSpeedReduced;
         Debug.Log("Blocking");
     }
 

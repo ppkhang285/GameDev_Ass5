@@ -27,10 +27,10 @@ public class Berserker : Character
         ability = Stats.GetInstantiatedAbility() as FullBurst;
         ability.Initialize(this);
 
-        maxRage = 100;
+        maxRage = 6;
         Rage = 0;
-        rageIncreasePerHit = 10f;
-        rageDecreaseSpeed = 0.2f;
+        rageIncreasePerHit = 0.25f;
+        rageDecreaseSpeed = 2/Time.deltaTime;
     }
 
     // Update is called once per frame
@@ -56,7 +56,7 @@ public class Berserker : Character
     private void BuffAttack()
     {
         if (!ability.abilityIsActivated)
-            CurrentDamage *= (1 + rage / 100);
+            CurrentDamage = Stats.damage * (1 + 0.25f * rage / maxRage);
     }
 
 }

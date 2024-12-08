@@ -25,14 +25,13 @@ public class Character : MonoBehaviour
     }
 
     public float CurrentDamage;
-    public float AttackSpeed;
-    public float MovementSpeed;
+    public float Speed;
     public float AttackRange;
     public float AttackCooldown;
     public Ability ability;
 
     private float resistence;
-    public float Resistence // Percentage of damage reduced, 0 = receive full damage, 1 = ignore all damage
+    public float Resistence 
     {
         get { return resistence; }
         set
@@ -57,8 +56,7 @@ public class Character : MonoBehaviour
         CurrentHP = Stats.hp;
         CurrentDamage = Stats.damage;
         Resistence = Stats.resistence;
-        AttackSpeed = Stats.attackSpeed;
-        MovementSpeed = Stats.movementSpeed;
+        Speed = Stats.speed;
         AttackRange = Stats.attackRange;
         AttackCooldown = Stats.attackCooldown;
         TimeSinceLastAttack = AttackCooldown;
@@ -90,7 +88,7 @@ public class Character : MonoBehaviour
 
     public virtual void Move(float horizontal, float vertical)
     {
-        Vector3 direction = new Vector3(horizontal, 0, vertical) * MovementSpeed * Time.deltaTime;
+        Vector3 direction = new Vector3(horizontal, 0, vertical) * Speed * Time.deltaTime;
         transform.Translate(direction, Space.Self);
     }
 
@@ -103,7 +101,7 @@ public class Character : MonoBehaviour
     public virtual void TakeDamage(float damage)
     {
         animator.SetTrigger("hit");
-        CurrentHP -= damage * (1 - resistence);
+        CurrentHP -= damage * (1 - Resistence);
         if (CurrentHP <= 0)
             Die();
     }
@@ -117,12 +115,11 @@ public class Character : MonoBehaviour
     {
         CurrentDamage = Stats.damage;
         Resistence = Stats.resistence;
-        AttackSpeed = Stats.attackSpeed;
-        MovementSpeed = Stats.movementSpeed;
+        Speed = Stats.speed;
         AttackRange = Stats.attackRange;
     }
 
-    void OnTriggerEnter(Collider other)
+    protected virtual void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Missile"))
         {

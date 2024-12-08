@@ -21,7 +21,7 @@ public class Archer : Character
 
         ammoPerRound = 10;
         currentAmmo = ammoPerRound;
-        reloadTime = 3;
+        reloadTime = 2;
         timeSinceReload = reloadTime;
         targetHits = 0;
         hitsForPierceShot = 5;

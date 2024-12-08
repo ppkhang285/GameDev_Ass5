@@ -6,7 +6,7 @@ using UnityEngine;
 public class FullBurst : Ability
 {
     private float attackBuff;
-    private float attackSpeedBuff;
+    private float attackCooldownReduction;
     private float speedBuff;
     private float resistenceDebuff;
 
@@ -20,18 +20,18 @@ public class FullBurst : Ability
         berserkerCharacter = character as Berserker;
 
         attackBuff = 1.5f;
-        attackSpeedBuff = 1.2f;
-        speedBuff = 1.2f;
-        resistenceDebuff = 0.9f;
+        attackCooldownReduction = 2.4f;
+        speedBuff = 1.3f;
+        resistenceDebuff = 1.2f;
     }
 
     public override void Activate()
     {
         base.Activate();
         berserkerCharacter.CurrentDamage *= attackBuff;
-        berserkerCharacter.AttackSpeed *= attackSpeedBuff;
-        berserkerCharacter.MovementSpeed *= speedBuff;
-        berserkerCharacter.Resistence *= resistenceDebuff;
+        berserkerCharacter.AttackCooldown /= attackCooldownReduction;
+        berserkerCharacter.Speed *= speedBuff;
+        berserkerCharacter.Resistence /= resistenceDebuff;
     }
 
     public override void Deactivate()

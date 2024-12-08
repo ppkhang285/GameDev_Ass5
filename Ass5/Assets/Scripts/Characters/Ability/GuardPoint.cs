@@ -16,7 +16,7 @@ public class GuardPoint : Ability
         base.Initialize(character);
         knightCharacter = character as Knight;
 
-        attackBuff = 1.2f;
+        attackBuff = 1.5f;
     }
 
     public override void Activate()
