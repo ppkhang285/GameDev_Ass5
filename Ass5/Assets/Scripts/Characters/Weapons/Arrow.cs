@@ -9,20 +9,16 @@ public class Arrow
     private float range;
     private float speed;
     public Archer archer;
-    public bool isPierce;
-    public float damage;
 
-    public Arrow(Archer archer, float range)
+    public Arrow(Archer archer, Vector3 startPosition, Vector3 direction, float range)
     {
         this.archer = archer;
-        this.startPosition = archer.transform.position;
+        this.startPosition = startPosition;
         Position = startPosition;
-        Direction = archer.transform.forward.normalized;
+        Direction = direction.normalized;
         speed = 3;
         this.range = range;
         IsActive = true;
-        isPierce = archer.ability.abilityIsActivated;
-        damage = archer.CurrentDamage;
     }
 
     public void UpdatePosition(float deltaTime)
@@ -45,3 +41,4 @@ public class Arrow
         IsActive = false;
     }
 }
+

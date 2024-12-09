@@ -13,10 +13,10 @@ public class Character : MonoBehaviour
     public CharacterStats Stats;
 
     private float hp;
-    public float CurrentHP
-    {
+    public float CurrentHP 
+    { 
         get { return hp; }
-        set
+        set 
         {
             if (value < 0) hp = 0;
             else if (value > Stats.hp) hp = Stats.hp;
@@ -25,7 +25,8 @@ public class Character : MonoBehaviour
     }
 
     public float CurrentDamage;
-    public float Speed;
+    public float AttackSpeed;
+    public float MovementSpeed;
     public float AttackRange;
     public float AttackCooldown;
     public Ability ability;
@@ -43,7 +44,6 @@ public class Character : MonoBehaviour
     }
 
     public float TimeSinceLastAttack;
-    private bool isDead;
 
     protected virtual void Awake()
     {
@@ -57,17 +57,15 @@ public class Character : MonoBehaviour
         CurrentHP = Stats.hp;
         CurrentDamage = Stats.damage;
         Resistence = Stats.resistence;
-        Speed = Stats.speed;
+        AttackSpeed = Stats.attackSpeed;
+        MovementSpeed = Stats.movementSpeed;
         AttackRange = Stats.attackRange;
         AttackCooldown = Stats.attackCooldown;
         TimeSinceLastAttack = AttackCooldown;
-        isDead = false;
     }
 
     protected virtual void Update()
     {
-        if (isDead)
-            return;
         TimeSinceLastAttack += Time.deltaTime;
         if (ability != null)
             ability.Passive();
@@ -92,7 +90,7 @@ public class Character : MonoBehaviour
 
     public virtual void Move(float horizontal, float vertical)
     {
-        Vector3 direction = new Vector3(horizontal, 0, vertical).normalized * Speed * Time.deltaTime;
+        Vector3 direction = new Vector3(horizontal, 0, vertical) * MovementSpeed * Time.deltaTime;
         transform.Translate(direction, Space.Self);
     }
 
@@ -100,6 +98,7 @@ public class Character : MonoBehaviour
     {
         TimeSinceLastAttack = 0;
         animator.SetTrigger("attack");
+
     }
 
     public virtual void TakeDamage(float damage)
@@ -112,16 +111,15 @@ public class Character : MonoBehaviour
 
     public virtual void Die()
     {
-        animator.SetTrigger("dead");
-        isDead = true;
-        gameObject.GetComponent<Collider>().enabled = false;
+        
     }
 
     public void ResetStats()
     {
         CurrentDamage = Stats.damage;
         Resistence = Stats.resistence;
-        Speed = Stats.speed;
+        AttackSpeed = Stats.attackSpeed;
+        MovementSpeed = Stats.movementSpeed;
         AttackRange = Stats.attackRange;
     }
 
@@ -131,7 +129,7 @@ public class Character : MonoBehaviour
         {
             float damage = ArrowManager.Instance.NotifyArrowHit(other.gameObject);
             TakeDamage(damage);
-        }
+        } 
         else if (other.CompareTag("Melee"))
         {
             GameObject damagerObject = other.gameObject.transform.root.gameObject;

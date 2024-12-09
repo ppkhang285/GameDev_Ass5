@@ -29,8 +29,8 @@ public class Berserker : Character
 
         maxRage = 100;
         Rage = 0;
-        rageIncreasePerHit = 0.25f;
-        rageDecreaseSpeed = 2 * Time.deltaTime;
+        rageIncreasePerHit = 10f;
+        rageDecreaseSpeed = 0.2f;
     }
 
     // Update is called once per frame
@@ -56,7 +56,7 @@ public class Berserker : Character
     private void BuffAttack()
     {
         if (!ability.abilityIsActivated)
-            CurrentDamage = Stats.damage * (1 + rage / maxRage);
+            CurrentDamage *= (1 + rage / 100);
     }
 
 }

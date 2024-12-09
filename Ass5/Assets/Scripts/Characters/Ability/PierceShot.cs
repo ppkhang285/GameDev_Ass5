@@ -25,7 +25,7 @@ public class PierceShot : Ability
     {
         base.Activate();
         archerCharacter.CurrentDamage *= attackBuff;
-        archerCharacter.Speed *= speedBuff;
+        archerCharacter.MovementSpeed *= speedBuff;
         archerCharacter.targetHits = 0;
     }
 

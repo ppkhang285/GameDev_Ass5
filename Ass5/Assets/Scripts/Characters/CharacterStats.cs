@@ -23,7 +23,8 @@ public class CharacterStats : ScriptableObject
     public float hp;
     public float damage;
     public float attackRange;
-    public float speed;
+    public float attackSpeed;
+    public float movementSpeed;
     public float jumpHeight;
     public float attackCooldown;
     public float resistence;

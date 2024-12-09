@@ -124,7 +124,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28137dd05681f514cab2ee7cbc4e000d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterStats: {fileID: 11400000, guid: a22e5fa9f5be94844b18099670dc888d, type: 2}
+  characterStats: {fileID: 0}
   Stats: {fileID: 0}
   CurrentDamage: 0
   AttackSpeed: 0

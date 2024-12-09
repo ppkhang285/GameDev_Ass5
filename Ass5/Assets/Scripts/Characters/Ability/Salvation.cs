@@ -28,7 +28,7 @@ public class Salvation : Ability
     public override void Activate()
     {
         base.Activate();
-        wizardCharacter.Speed *= speedBuff;
+        wizardCharacter.MovementSpeed *= speedBuff;
         wizardCharacter.Resistence = 1 - (1 - character.Resistence) * (1 - damageReduced);
         wizardCharacter.manaRefill *= manaRefillBuff;
     }
@@ -47,6 +47,6 @@ public class Salvation : Ability
 
     private void Heal()
     {
-        character.CurrentHP += healAmount * Time.deltaTime;
+        character.CurrentHP += healAmount;
     }
 }

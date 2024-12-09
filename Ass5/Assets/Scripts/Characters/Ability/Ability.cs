@@ -6,7 +6,7 @@ public abstract class Ability : ScriptableObject
 {
     public string AbilityName;
 
-    public float duration;
+    protected float duration;
     protected float timeSinceActivate;
     public bool abilityIsActivated;
 
