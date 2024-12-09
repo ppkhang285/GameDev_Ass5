@@ -32,13 +32,13 @@ public class GameplayManager : MonoBehaviour
         else
             Destroy(gameObject);
 
-        //level = GameManager.Instance.Level;
+        level = GameManager.Instance.Level;
 
-        //GameObject prefab = Resources.Load<GameObject>("Prefabs/Characters/" + GameManager.Instance.CharacterType);
+        GameObject prefab = Resources.Load<GameObject>("Prefabs/Characters/" + GameManager.Instance.CharacterType);
 
-        level = 1;
+        //level = 1;
 
-        GameObject prefab = Resources.Load<GameObject>("Prefabs/Characters/Knight");
+        //GameObject prefab = Resources.Load<GameObject>("Prefabs/Characters/Knight");
         player = Instantiate(prefab);
 
         enemies = new List<GameObject>();

@@ -16,9 +16,10 @@ public class Arrow
     {
         this.archer = archer;
         this.startPosition = archer.transform.position;
+        startPosition.y += archer.gameObject.GetComponent<BoxCollider>().size.y / 2;
         Position = startPosition;
         Direction = archer.transform.forward.normalized;
-        speed = 3;
+        speed = 20;
         this.range = archer.AttackRange;
         IsActive = true;
         isPierce = archer.ability.abilityIsActivated;
