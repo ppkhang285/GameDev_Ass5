@@ -6,7 +6,10 @@ public class GameplayManager : MonoBehaviour
 {
     public static GameplayManager Instance { get; private set; }
 
+    public CameraManager cameraManager;
+
     public GameObject player;
+    
 
     private CharacterType[] types = { CharacterType.Warrior, CharacterType.Rogue, CharacterType.Minion };
     private float timeSinceLastEnemySpawn;
