@@ -44566,7 +44566,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ac77725a7e4d2743991eb6a3f85b71a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  arrowPrefab: {fileID: 2157028932647142208, guid: 8864a425f4ffcbc4db7d0c35a013bae1, type: 3}
+  arrowPrefab: {fileID: 8827881042373468009, guid: 3e25bb5e8e53a6247b959a3d50e82a85, type: 3}
 --- !u!1001 &1228634898
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -58,6 +58,8 @@ public class ArrowManager : MonoBehaviour
     {
         GameObject arrowObject = GetArrowFromPool();
         arrowObject.SetActive(true);
+        arrowObject.transform.rotation = Quaternion.LookRotation(archer.transform.forward) * Quaternion.Euler(-90, 0, 0);
+
         Arrow arrow = new Arrow(archer);
         arrows.Add(arrow);
 
