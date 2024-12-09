@@ -51,10 +51,34 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7263015266732235272, guid: aba41b633ad1cc54d8604c29ace800b5, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: edc6e413722fe6640a9bb044aa1a6632, type: 2}
+    - target: {fileID: -4329922857456236744, guid: aba41b633ad1cc54d8604c29ace800b5, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: edc6e413722fe6640a9bb044aa1a6632, type: 2}
+    - target: {fileID: -3914819353338076266, guid: aba41b633ad1cc54d8604c29ace800b5, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: edc6e413722fe6640a9bb044aa1a6632, type: 2}
     - target: {fileID: -3606650129264159978, guid: aba41b633ad1cc54d8604c29ace800b5, type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -3185273899851758396, guid: aba41b633ad1cc54d8604c29ace800b5, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: edc6e413722fe6640a9bb044aa1a6632, type: 2}
+    - target: {fileID: -3053669679340262298, guid: aba41b633ad1cc54d8604c29ace800b5, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: edc6e413722fe6640a9bb044aa1a6632, type: 2}
+    - target: {fileID: -935533772807217311, guid: aba41b633ad1cc54d8604c29ace800b5, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: edc6e413722fe6640a9bb044aa1a6632, type: 2}
     - target: {fileID: -695009955411471175, guid: aba41b633ad1cc54d8604c29ace800b5, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -71,6 +95,30 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1714662531892281021, guid: aba41b633ad1cc54d8604c29ace800b5, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: edc6e413722fe6640a9bb044aa1a6632, type: 2}
+    - target: {fileID: 2241721517836470498, guid: aba41b633ad1cc54d8604c29ace800b5, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: edc6e413722fe6640a9bb044aa1a6632, type: 2}
+    - target: {fileID: 3680723932289504619, guid: aba41b633ad1cc54d8604c29ace800b5, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: edc6e413722fe6640a9bb044aa1a6632, type: 2}
+    - target: {fileID: 5271092880574161400, guid: aba41b633ad1cc54d8604c29ace800b5, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: edc6e413722fe6640a9bb044aa1a6632, type: 2}
+    - target: {fileID: 7780057163218742532, guid: aba41b633ad1cc54d8604c29ace800b5, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: edc6e413722fe6640a9bb044aa1a6632, type: 2}
+    - target: {fileID: 8228176759813730336, guid: aba41b633ad1cc54d8604c29ace800b5, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: edc6e413722fe6640a9bb044aa1a6632, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aba41b633ad1cc54d8604c29ace800b5, type: 3}
 --- !u!1 &9064573566980778664 stripped
@@ -124,11 +172,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28137dd05681f514cab2ee7cbc4e000d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterStats: {fileID: 0}
+  characterStats: {fileID: 11400000, guid: a22e5fa9f5be94844b18099670dc888d, type: 2}
   Stats: {fileID: 0}
   CurrentDamage: 0
-  AttackSpeed: 0
-  MovementSpeed: 0
+  Speed: 0
   AttackRange: 0
   AttackCooldown: 0
   ability: {fileID: 0}

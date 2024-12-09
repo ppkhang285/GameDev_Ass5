@@ -40,8 +40,6 @@ public class Knight : Character
         timeSinceBlock += Time.deltaTime;
         base.Update();
         RecoverShield();
-
-       
     }
 
     protected override void HandleInput()
@@ -57,17 +55,16 @@ public class Knight : Character
             else if (Input.GetMouseButton(1))
                 Block();
             else
-                UnBlock();
+                Unblock();
         }
         else
-            UnBlock();
+            Unblock();
     }
 
     public override void Attack()
     {
+        Unblock();
         base.Attack();
-        isBlocking = false;
-       
     }
 
     public override void TakeDamage(float damage)
@@ -98,7 +95,7 @@ public class Knight : Character
        // animator.Play("Block");
     }
 
-    private void UnBlock()
+    private void Unblock()
     {
         isBlocking = false;
         AttackCooldown = Stats.attackCooldown;

@@ -53,21 +53,21 @@ public class GameplayManager : MonoBehaviour
     void Update()
     {
         timeSinceLastSpawn += Time.deltaTime;
-        SpawnEnemy();
+        //SpawnEnemy();
     }
 
-    void SpawnEnemy()
-    {
-        if (timeSinceLastSpawn >= spawnInterval && enemySpawned < maxSpawn)
-        {
-            int enemyTypeIdx = 0;
-            int locationIdx = 0;
+    //void SpawnEnemy()
+    //{
+    //    if (timeSinceLastSpawn >= spawnInterval && enemySpawned < maxSpawn)
+    //    {
+    //        int enemyTypeIdx = 0;
+    //        int locationIdx = 0;
 
-            GameObject prefab = Resources.Load<GameObject>("Prefabs/Enemies/" + types[enemyTypeIdx].ToString());
-            GameObject enemy = Instantiate(prefab, spawnLocations[locationIdx].transform.position, spawnLocations[locationIdx].transform.rotation);
-            enemies.Add(enemy);
-            timeSinceLastSpawn = 0;
-            enemySpawned++;
-        }
-    }
+    //        GameObject prefab = Resources.Load<GameObject>("Prefabs/Enemies/" + types[enemyTypeIdx].ToString());
+    //        GameObject enemy = Instantiate(prefab, spawnLocations[locationIdx].transform.position, spawnLocations[locationIdx].transform.rotation);
+    //        enemies.Add(enemy);
+    //        timeSinceLastSpawn = 0;
+    //        enemySpawned++;
+    //    }
+    //}
 }

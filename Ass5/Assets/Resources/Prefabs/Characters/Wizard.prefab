@@ -63,6 +63,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3327415615574490268, guid: be99a5a0c71739b49b04d518af3d84bc, type: 3}
+      propertyPath: m_TagString
+      value: Melee
+      objectReference: {fileID: 0}
     - target: {fileID: 4034608614429032291, guid: be99a5a0c71739b49b04d518af3d84bc, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -82,7 +86,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1890524628632830815}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 0.57620937, y: 2.1546998, z: 0.29234514}
@@ -138,11 +142,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a8dcf2f08a036e49b547a7407fa5dd4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterStats: {fileID: 0}
+  characterStats: {fileID: 11400000, guid: ecef81d7d15998347b1ce6eccc351f78, type: 2}
   Stats: {fileID: 0}
   CurrentDamage: 0
-  AttackSpeed: 0
-  MovementSpeed: 0
+  Speed: 0
   AttackRange: 0
   AttackCooldown: 0
   ability: {fileID: 0}
