@@ -100,6 +100,7 @@ public class Character : MonoBehaviour
     {
         TimeSinceLastAttack = 0;
         animator.SetTrigger("attack");
+
     }
 
     public virtual void TakeDamage(float damage)
