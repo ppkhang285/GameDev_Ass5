@@ -62,6 +62,8 @@ public class Character : MonoBehaviour
         AttackCooldown = Stats.attackCooldown;
         TimeSinceLastAttack = AttackCooldown;
         isDead = false;
+
+        
     }
 
     protected virtual void Update()
@@ -81,6 +83,19 @@ public class Character : MonoBehaviour
         Move(horizontal, vertical);
         if (Input.GetMouseButtonDown(0) && TimeSinceLastAttack >= AttackCooldown)
             Attack();
+
+        //
+        float mouseX = Input.GetAxis("Mouse X");
+        float mouseY = Input.GetAxis("Mouse Y");
+        Rotate(mouseX);
+
+    }
+
+    public virtual void Rotate(float rotY) 
+    {
+        float rot = rotY * Time.deltaTime * 150;
+
+        transform.Rotate(0, rot, 0);
     }
 
     public virtual void Move(float horizontal, float vertical)
@@ -100,6 +115,8 @@ public class Character : MonoBehaviour
     {
         animator.SetTrigger("hit");
         CurrentHP -= damage * (1 - Resistence);
+
+        GameplayManager.Instance.hudManager.UpdateHpHUD(CurrentHP, Stats.hp);
         if (CurrentHP <= 0)
             Die();
     }
