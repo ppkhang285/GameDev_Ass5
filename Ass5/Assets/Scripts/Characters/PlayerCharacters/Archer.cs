@@ -58,6 +58,8 @@ public class Archer : Character
     {
         if (currentAmmo == 0) // No ammo left
         {
+            if (timeSinceReload < Time.deltaTime)
+                animator.SetTrigger("reload");
             if (timeSinceReload >= reloadTime)
             {
                 timeSinceReload = 0;

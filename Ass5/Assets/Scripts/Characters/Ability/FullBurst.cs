@@ -32,6 +32,7 @@ public class FullBurst : Ability
         berserkerCharacter.AttackCooldown /= attackCooldownReduction;
         berserkerCharacter.Speed *= speedBuff;
         berserkerCharacter.Resistence /= resistenceDebuff;
+        berserkerCharacter.animator.SetTrigger("spin");
     }
 
     public override void Deactivate()
@@ -40,8 +41,8 @@ public class FullBurst : Ability
         berserkerCharacter.Rage = 0;
     }
 
-    
 
-    
+
+
 
 }

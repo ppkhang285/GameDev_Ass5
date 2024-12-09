@@ -147,9 +147,7 @@ public class EnemyAI : MonoBehaviour
                 Character damager = damagerObject.GetComponent<Character>();
                 TakeDamage(damager.CurrentDamage);
                 if (damager.Stats.charType == CharacterType.Berserker)
-                {
                     (damager as Berserker).HitTarget();
-                }
             }
         }
     }

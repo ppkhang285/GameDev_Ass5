@@ -73,10 +73,13 @@ public class Character : MonoBehaviour
         TimeSinceLastAttack += Time.deltaTime;
         if (ability != null)
             ability.Passive();
-        if (photonView.IsMine)
+        if (GameManager.Instance.isPvP)
         {
-            HandleInput();
+            if (photonView.IsMine)
+                HandleInput();
         }
+        else
+            HandleInput();
     }
 
     protected virtual void HandleInput()
@@ -134,11 +137,17 @@ public class Character : MonoBehaviour
         else if (other.CompareTag("Melee"))
         {
             GameObject damagerObject = other.gameObject.transform.root.gameObject;
-            Character damager = damagerObject.GetComponent<Character>();
-            TakeDamage(damager.CurrentDamage);
-            if (damager.Stats.charType == CharacterType.Berserker)
+            if (damagerObject.GetComponent<Character>())
             {
-                (damager as Berserker).HitTarget();
+                Character damager = damagerObject.GetComponent<Character>();
+                TakeDamage(damager.CurrentDamage);
+                if (damager.Stats.charType == CharacterType.Berserker)
+                    (damager as Berserker).HitTarget();
+            } 
+            else if (damagerObject.GetComponent<EnemyAI>())
+            {
+                EnemyAI damager = damagerObject.GetComponent<EnemyAI>();
+                TakeDamage(damager.CurrentDamage);
             }
         } else if (other.CompareTag("Item"))
         {

@@ -28,7 +28,7 @@ public class Berserker : Character
         ability.Initialize(this);
 
         maxRage = 6;
-        Rage = 0;
+        Rage = 6;
         rageIncreasePerHit = 0.25f;
         rageDecreaseSpeed = 2;
     }
@@ -41,6 +41,21 @@ public class Berserker : Character
             ability.Activate();
         DecreaseRage();
         BuffAttack();
+    }
+
+    public override void Move(float horizontal, float vertical)
+    {
+        Vector3 direction = new Vector3(horizontal, 0, vertical).normalized;
+        if (!ability.abilityIsActivated)
+            animator.SetFloat("speed", direction.magnitude);
+        transform.Translate(direction * Speed * Time.deltaTime, Space.Self);
+    }
+
+    public override void Attack()
+    {
+        TimeSinceLastAttack = 0;
+        if (!ability.abilityIsActivated) 
+            animator.SetTrigger("attack");
     }
 
     public void HitTarget()
