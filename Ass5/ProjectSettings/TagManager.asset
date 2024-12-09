@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Melee
   - Missile
+  - Item
   layers:
   - Default
   - TransparentFX

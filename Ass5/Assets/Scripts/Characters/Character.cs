@@ -85,9 +85,9 @@ public class Character : MonoBehaviour
 
     public virtual void Move(float horizontal, float vertical)
     {
-        Vector3 direction = new Vector3(horizontal, 0, vertical).normalized * Speed * Time.deltaTime;
-        animator.SetFloat("speed", direction.normalized.magnitude);
-        transform.Translate(direction, Space.Self);
+        Vector3 direction = new Vector3(horizontal, 0, vertical).normalized;
+        animator.SetFloat("speed", direction.magnitude);
+        transform.Translate(direction * Speed * Time.deltaTime, Space.Self);
     }
 
     public virtual void Attack()

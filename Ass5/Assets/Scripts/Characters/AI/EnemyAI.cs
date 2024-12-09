@@ -9,8 +9,8 @@ public class EnemyAI : MonoBehaviour
     private CharacterStats characterStats;
     public CharacterStats Stats;
 
-    public float DetectionRange { get; private set; } = 10f; // How far the enemy can detect the player
-    public float WanderRadius { get; private set; } = 5f; // Radius for random wandering
+    public float DetectionRange { get; private set; } = 20f; // How far the enemy can detect the player
+    public float WanderRadius { get; private set; } = 10f; // Radius for random wandering
     public float WanderInterval { get; private set; } = 3f; // Time between wander points
     private GameObject player; 
 
@@ -34,6 +34,7 @@ public class EnemyAI : MonoBehaviour
     private float lastWanderTime;
 
     public float TimeSinceLastAttack;
+    private bool isDead;
     private Vector3 destination;
 
     private void Awake()
@@ -48,6 +49,7 @@ public class EnemyAI : MonoBehaviour
         AttackRange = Stats.attackRange;
         AttackCooldown = Stats.attackCooldown;
         TimeSinceLastAttack = AttackCooldown;
+        isDead = false;
     }
 
     void Start()
@@ -57,13 +59,18 @@ public class EnemyAI : MonoBehaviour
 
     void Update()
     {
+        if (isDead)
+            return;
         TimeSinceLastAttack += Time.deltaTime;
         float distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
 
         if (distanceToPlayer <= DetectionRange)
         {
-            if (distanceToPlayer <= characterStats.attackRange && TimeSinceLastAttack >= AttackCooldown)
-                Attack();
+            if (distanceToPlayer <= characterStats.attackRange)
+            {
+                if (TimeSinceLastAttack >= AttackCooldown)
+                    Attack();
+            }
             else
                 Pursue();
         }
@@ -73,10 +80,14 @@ public class EnemyAI : MonoBehaviour
 
     private void Move()
     {
-
-        Vector3 direction = (destination - transform.position).normalized * Speed * Time.deltaTime;
-        transform.Translate(direction, Space.Self);
-        animator.SetBool("isRunning", true);
+        Vector3 direction = (destination - transform.position).normalized;
+        animator.SetFloat("speed", direction.magnitude);
+        if (direction.magnitude > 0)
+        {
+            Quaternion targetRotation = Quaternion.LookRotation(direction);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 10); // Smooth rotation
+        }
+        transform.Translate(direction * Speed * Time.deltaTime, Space.World);
     }
 
     private void Attack()
@@ -101,11 +112,6 @@ public class EnemyAI : MonoBehaviour
         }
     }
 
-    void Flee()
-    {
-        // Flee from combat if low hp
-    }
-
     public virtual void TakeDamage(float damage)
     {
         animator.SetTrigger("hit");
@@ -117,6 +123,8 @@ public class EnemyAI : MonoBehaviour
     public virtual void Die()
     {
         animator.SetTrigger("dead");
+        isDead = true;
+        gameObject.GetComponent<Collider>().enabled = false;
     }
 
     void OnTriggerEnter(Collider other)

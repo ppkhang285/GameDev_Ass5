@@ -36,9 +36,6 @@ public class GameplayManager : MonoBehaviour
 
         GameObject prefab = Resources.Load<GameObject>("Prefabs/Characters/" + GameManager.Instance.CharacterType);
 
-        //level = 1;
-
-        //GameObject prefab = Resources.Load<GameObject>("Prefabs/Characters/Knight");
         player = Instantiate(prefab);
 
         enemies = new List<GameObject>();
@@ -49,20 +46,15 @@ public class GameplayManager : MonoBehaviour
         items = new List<GameObject>();
         timeSinceLastItemSpawn = itemSpawnInterval;
     }
-    
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
     // Update is called once per frame
     void Update()
     {
         timeSinceLastEnemySpawn += Time.deltaTime;
         timeSinceLastItemSpawn += Time.deltaTime;
-        //SpawnEnemy();
+        SpawnEnemy();
         SpawnItem();
+        items.RemoveAll(item => item == null);
     }
 
     void SpawnEnemy()
