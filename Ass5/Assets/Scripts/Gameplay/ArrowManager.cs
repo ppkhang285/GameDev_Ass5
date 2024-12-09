@@ -92,9 +92,10 @@ public class ArrowManager : MonoBehaviour
     {
         if (arrowMap.TryGetValue(arrowObject, out Arrow arrow))
         {
-            arrow.Deactivate();
+            if (!arrow.isPierce)
+                arrow.Deactivate();
             arrow.archer.HitTarget();
-            return arrow.archer.CurrentDamage;
+            return arrow.damage;
         }
         return 0;
     }

@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Knight's Guard Point
   m_EditorClassIdentifier: 
   AbilityName: Guard Point
-  duration: 0.3
+  duration: 1
   abilityIsActivated: 0
