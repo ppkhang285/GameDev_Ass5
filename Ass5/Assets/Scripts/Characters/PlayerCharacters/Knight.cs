@@ -32,7 +32,7 @@ public class Knight : Character
         timeSinceBlock = 0;
         timeForGuardPoint = 0.5f;
         shieldResistenceBuff = 1f / 3;
-        shieldSpeedReduced = 4f / 3;
+        shieldSpeedReduced = 2;
     }
 
     protected override void Update()
@@ -90,15 +90,14 @@ public class Knight : Character
     private void Block()
     {
         isBlocking = true;
-        AttackCooldown = Stats.attackCooldown * shieldSpeedReduced;
-        Debug.Log("Blocking");
+        Speed = Stats.speed / shieldSpeedReduced;
        // animator.Play("Block");
     }
 
     private void Unblock()
     {
         isBlocking = false;
-        AttackCooldown = Stats.attackCooldown;
+        Speed = Stats.speed;
     }
 
     private void RecoverShield()
