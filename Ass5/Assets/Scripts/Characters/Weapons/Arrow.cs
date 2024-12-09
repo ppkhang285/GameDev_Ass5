@@ -12,14 +12,14 @@ public class Arrow
     public bool isPierce;
     public float damage;
 
-    public Arrow(Archer archer, Vector3 startPosition, Vector3 direction, float range)
+    public Arrow(Archer archer)
     {
         this.archer = archer;
-        this.startPosition = startPosition;
+        this.startPosition = archer.transform.position;
         Position = startPosition;
-        Direction = direction.normalized;
+        Direction = archer.transform.forward.normalized;
         speed = 3;
-        this.range = range;
+        this.range = archer.AttackRange;
         IsActive = true;
         isPierce = archer.ability.abilityIsActivated;
         damage = archer.CurrentDamage;

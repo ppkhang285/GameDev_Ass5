@@ -54,13 +54,11 @@ public class Knight : Character
             }
             else if (Input.GetMouseButton(1))
                 Block();
+            else
+                UnBlock();
         }
         else
-        {
-            isBlocking = false;
-            AttackCooldown = Stats.attackCooldown;
-        }
-
+            UnBlock();
     }
 
     public override void Attack()
@@ -92,8 +90,14 @@ public class Knight : Character
     private void Block()
     {
         isBlocking = true;
-        AttackCooldown *= shieldSpeedReduced;
+        AttackCooldown = Stats.attackCooldown * shieldSpeedReduced;
         Debug.Log("Blocking");
+    }
+
+    private void UnBlock()
+    {
+        isBlocking = false;
+        AttackCooldown = Stats.attackCooldown;
     }
 
     private void RecoverShield()

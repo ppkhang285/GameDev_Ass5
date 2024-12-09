@@ -58,11 +58,7 @@ public class ArrowManager : MonoBehaviour
     {
         GameObject arrowObject = GetArrowFromPool();
         arrowObject.SetActive(true);
-
-        Vector3 direction = archer.transform.forward;
-        Vector3 position = archer.transform.position;
-        float range = archer.Stats.attackRange;
-        Arrow arrow = new Arrow(archer, position, direction, range);
+        Arrow arrow = new Arrow(archer);
         arrows.Add(arrow);
 
         arrowMap[arrowObject] = arrow;
