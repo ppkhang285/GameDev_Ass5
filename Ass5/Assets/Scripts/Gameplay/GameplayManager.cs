@@ -7,6 +7,7 @@ public class GameplayManager : MonoBehaviour
     public static GameplayManager Instance { get; private set; }
 
     public CameraManager cameraManager;
+    public HUDManager hudManager;
 
     public GameObject player;
     
@@ -48,8 +49,16 @@ public class GameplayManager : MonoBehaviour
 
         items = new List<GameObject>();
         timeSinceLastItemSpawn = itemSpawnInterval;
+
+        
     }
 
+    private void Start()
+    {
+        // Cursor
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Confined;
+    }
     // Update is called once per frame
     void Update()
     {
@@ -58,8 +67,32 @@ public class GameplayManager : MonoBehaviour
         SpawnEnemy();
         SpawnItem();
         items.RemoveAll(item => item == null);
+
+        ShowHideCursor();
+        OpenSetting();
     }
 
+    private void OpenSetting()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            hudManager.OpenSettingPanel();
+
+        }
+    }
+    private void ShowHideCursor()
+    {
+        if (Input.GetKey(KeyCode.LeftAlt))
+        {
+            Cursor.visible = true;
+            
+        }
+
+        if (Input.GetKeyUp(KeyCode.LeftAlt))
+        {
+            Cursor.visible = false;
+        }
+    }
     void SpawnEnemy()
     {
         if (timeSinceLastEnemySpawn >= enemySpawnInterval && enemySpawned < maxSpawn)
