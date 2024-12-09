@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 8598686327556548661}
   m_Layer: 0
   m_Name: Skeleton_Axe
-  m_TagString: Untagged
+  m_TagString: Melee
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -242,6 +242,22 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 756f76059f2ea924bbdf67a75d088467, type: 3}
   m_PrefabInstance: {fileID: 923124205032360213}
   m_PrefabAsset: {fileID: 0}
+--- !u!54 &-4905213881301301502
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4205920553399364}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!65 &6889472488371635327
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -276,6 +292,25 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &5333679120831432929
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4205920553399364}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61454998feb0b5649884482cce0380db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterStats: {fileID: 11400000, guid: f0fb448235680c342950162c55e90563, type: 2}
+  Stats: {fileID: 0}
+  CurrentDamage: 0
+  Speed: 0
+  AttackRange: 0
+  AttackCooldown: 0
+  TimeSinceLastAttack: 0
 --- !u!4 &1348369473568013153 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2196004506624635508, guid: 756f76059f2ea924bbdf67a75d088467, type: 3}

@@ -8,7 +8,7 @@ public class GameplayManager : MonoBehaviour
 
     public GameObject player;
 
-    private CharacterType[] types = { CharacterType.Warrior, CharacterType.Rogue, CharacterType.Minion, CharacterType.Mage };
+    private CharacterType[] types = { CharacterType.Warrior, CharacterType.Rogue, CharacterType.Minion };
     private float timeSinceLastEnemySpawn;
     private float enemySpawnInterval = 3;
     private int maxSpawn;
@@ -64,7 +64,7 @@ public class GameplayManager : MonoBehaviour
             int enemyTypeIdx = Random.Range(0, types.Length);
             int locationIdx = Random.Range(0, spawnLocations.Count);
 
-            GameObject prefab = Resources.Load<GameObject>("Prefabs/Enemies/" + types[enemyTypeIdx].ToString());
+            GameObject prefab = Resources.Load<GameObject>("Prefabs/Enemies/Skeleton_" + types[enemyTypeIdx].ToString());
             GameObject enemy = Instantiate(prefab, spawnLocations[locationIdx].transform.position, spawnLocations[locationIdx].transform.rotation);
             enemies.Add(enemy);
             timeSinceLastEnemySpawn = 0;

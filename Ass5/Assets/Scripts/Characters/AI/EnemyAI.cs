@@ -106,14 +106,19 @@ public class EnemyAI : MonoBehaviour
     {
         if (Time.time - lastWanderTime > WanderInterval)
         {
-            destination = Random.insideUnitSphere * WanderRadius;
+            destination = Random.insideUnitSphere;
+            destination.y = 0;
+            destination = destination.normalized * WanderRadius;
             Move();
             lastWanderTime = Time.time;
         }
+        else
+            Move();
     }
 
     public virtual void TakeDamage(float damage)
     {
+        Debug.Log(CurrentHP);
         animator.SetTrigger("hit");
         CurrentHP -= damage;
         if (CurrentHP <= 0)
@@ -137,11 +142,14 @@ public class EnemyAI : MonoBehaviour
         else if (other.CompareTag("Melee"))
         {
             GameObject damagerObject = other.gameObject.transform.root.gameObject;
-            Character damager = damagerObject.GetComponent<Character>();
-            TakeDamage(damager.CurrentDamage);
-            if (damager.Stats.charType == CharacterType.Berserker)
+            if (damagerObject.GetComponent<Character>())
             {
-                (damager as Berserker).HitTarget();
+                Character damager = damagerObject.GetComponent<Character>();
+                TakeDamage(damager.CurrentDamage);
+                if (damager.Stats.charType == CharacterType.Berserker)
+                {
+                    (damager as Berserker).HitTarget();
+                }
             }
         }
     }
