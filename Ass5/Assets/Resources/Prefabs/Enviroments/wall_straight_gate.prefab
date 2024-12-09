@@ -55,5 +55,27 @@ PrefabInstance:
       propertyPath: m_Name
       value: wall_straight_gate
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 283c44fb561ff614ca0c66be3263d2b3, type: 3}
+      propertyPath: m_TagString
+      value: Wall
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 283c44fb561ff614ca0c66be3263d2b3, type: 3}
+--- !u!1 &4761895231581659878 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 283c44fb561ff614ca0c66be3263d2b3, type: 3}
+  m_PrefabInstance: {fileID: 5680393359810633655}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &894218581362697718
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4761895231581659878}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2, y: 1.414029, z: 0.89562404}
+  m_Center: {x: 0, y: 0.6570144, z: 0.047811836}
