@@ -36,7 +36,7 @@ public class Wizard : Character
         manaPerCast = 15;
         CurrentMana = 0;
         hpPerCast = 1;
-        manaRefill = 0.2f;
+        manaRefill = 5f;
         timeForSalvation = 10;
     }
 
@@ -49,6 +49,7 @@ public class Wizard : Character
     protected override void HandleInput()
     {
         base.HandleInput();
+
         if (Input.GetKeyDown(KeyCode.F) && !salvationAbility.abilityIsActivated) // Press F to switch on/off soul exchange mode if not in salvation mode
         {
             if (ability.abilityIsActivated)

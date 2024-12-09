@@ -21,8 +21,8 @@ public class Archer : Character
 
         ammoPerRound = 10;
         currentAmmo = ammoPerRound;
-        reloadTime = 2;
-        timeSinceReload = reloadTime;
+        reloadTime = 5;
+        timeSinceReload = 0;
         targetHits = 0;
         hitsForPierceShot = 5;
     }
@@ -63,7 +63,7 @@ public class Archer : Character
                 timeSinceReload = 0;
                 currentAmmo = ammoPerRound;
             }
-            else
+            else 
                 timeSinceReload += Time.deltaTime;
         }
     }

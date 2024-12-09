@@ -41,9 +41,12 @@ public abstract class Ability : ScriptableObject
 
     public virtual void Passive()
     {
-        if (timeSinceActivate < duration)
-            timeSinceActivate += Time.deltaTime;
-        else
-            Deactivate();
+        if (abilityIsActivated)
+        {
+            if (timeSinceActivate < duration)
+                timeSinceActivate += Time.deltaTime;
+            else
+                Deactivate();
+        }
     }
 }
