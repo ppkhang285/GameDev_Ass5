@@ -101,7 +101,7 @@ public class Character : MonoBehaviour
 
     public virtual void Rotate(float rotY) 
     {
-        float rot = rotY * Time.deltaTime * 150;
+        float rot = rotY;
 
         transform.Rotate(0, rot, 0);
     }

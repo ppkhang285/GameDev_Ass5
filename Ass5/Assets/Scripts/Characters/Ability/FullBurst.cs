@@ -39,6 +39,7 @@ public class FullBurst : Ability
     {
         base.Deactivate();
         berserkerCharacter.Rage = 0;
+        berserkerCharacter.animator.SetTrigger("spin");
     }
 
 

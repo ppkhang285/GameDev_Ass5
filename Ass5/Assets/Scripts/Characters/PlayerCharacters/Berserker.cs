@@ -28,7 +28,7 @@ public class Berserker : Character
         ability.Initialize(this);
 
         maxRage = 6;
-        Rage = 6;
+        Rage = 0;
         rageIncreasePerHit = 0.25f;
         rageDecreaseSpeed = 2;
     }
