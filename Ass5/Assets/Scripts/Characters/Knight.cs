@@ -36,11 +36,7 @@ public class Knight : Character
     {
         timeSinceBlock += Time.deltaTime;
         base.Update();
-        if ((timeSinceBlock <= timeForGuardPoint) & !ability.abilityIsActivated)
-            ability.Activate();
         RecoverShield();
-
-       
     }
 
     protected override void HandleInput()
@@ -63,12 +59,13 @@ public class Knight : Character
     public override void Attack()
     {
         base.Attack();
-        isBlocking = false;
-       
+        isBlocking = false;  
     }
 
     public override void TakeDamage(float damage)
     {
+        if ((timeSinceBlock <= timeForGuardPoint) & !ability.abilityIsActivated)
+            ability.Activate();
         float newDamge = damage;
         if (isBlocking)
         {

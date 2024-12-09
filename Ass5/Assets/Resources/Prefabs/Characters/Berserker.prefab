@@ -95,27 +95,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.1321459, y: 2.4794395, z: 1}
   m_Center: {x: 0.0028831065, y: 1.2035352, z: 0}
---- !u!114 &4782161079712720146
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2220546021626001367}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 80721c522f061074db44efe73ec8592c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  characterStats: {fileID: 0}
-  Stats: {fileID: 0}
-  CurrentDamage: 0
-  AttackSpeed: 0
-  MovementSpeed: 0
-  AttackRange: 0
-  AttackCooldown: 0
-  ability: {fileID: 0}
-  TimeSinceLastAttack: 0
 --- !u!95 &3559635938274377320
 Animator:
   serializedVersion: 5
@@ -137,6 +116,27 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &4782161079712720146
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2220546021626001367}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80721c522f061074db44efe73ec8592c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterStats: {fileID: 11400000, guid: 167e7a9b36c5eb248859e3b5947b58bf, type: 2}
+  Stats: {fileID: 0}
+  CurrentDamage: 0
+  AttackSpeed: 0
+  MovementSpeed: 0
+  AttackRange: 0
+  AttackCooldown: 0
+  ability: {fileID: 0}
+  TimeSinceLastAttack: 0
 --- !u!1 &4766052526157211182 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -3443577493287228248, guid: 638c93a312b97944db5ee355c65e3c71, type: 3}

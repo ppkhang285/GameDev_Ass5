@@ -59,10 +59,8 @@ public class ArrowManager : MonoBehaviour
         GameObject arrowObject = GetArrowFromPool();
         arrowObject.SetActive(true);
 
-        Vector3 direction = archer.transform.forward;
-        Vector3 position = archer.transform.position;
         float range = archer.Stats.attackRange;
-        Arrow arrow = new Arrow(archer, position, direction, range);
+        Arrow arrow = new Arrow(archer, range);
         arrows.Add(arrow);
 
         arrowMap[arrowObject] = arrow;
@@ -92,9 +90,10 @@ public class ArrowManager : MonoBehaviour
     {
         if (arrowMap.TryGetValue(arrowObject, out Arrow arrow))
         {
-            arrow.Deactivate();
+            if (!arrow.isPierce)
+                arrow.Deactivate();
             arrow.archer.HitTarget();
-            return arrow.archer.CurrentDamage;
+            return arrow.damage;
         }
         return 0;
     }
