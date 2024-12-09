@@ -14,4 +14,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/RoomScene.unity
     guid: 4ccab4baac5560e4e819e1e31556e76f
+  - enabled: 1
+    path: Assets/Scenes/ChooseCharacter.unity
+    guid: 94c4e8006d147c44fa87cd1940dcd644
+  - enabled: 1
+    path: Assets/Scenes/PVEGameplay.unity
+    guid: 11b61e90e9d6792448f0c833e9325a23
   m_configObjects: {}

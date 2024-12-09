@@ -59,21 +59,19 @@ public class TitleScreenEventManager : MonoBehaviour
     }
     public void OnPVP()
     {
+        GameManager.Instance.isPvP = true;
         UnityEngine.SceneManagement.SceneManager.LoadScene("LobbyScene");
     }
     public void OnPVE()
     {
+        GameManager.Instance.isPvP = false;
         chooseLevel.SetActive(true);
         chooseMode.SetActive(false);
     }
-    public void OnLevel1()
+    public void OnLevel(int level)
     {
+        GameManager.Instance.Level = level;
+        GameManager.Instance.isPvP = false;
+        UnityEngine.SceneManagement.SceneManager.LoadScene("ChooseCharacter");
     }
-    public void OnLevel2()
-    {
-    }
-    public void OnLevel3()
-    {
-    }
-
 }

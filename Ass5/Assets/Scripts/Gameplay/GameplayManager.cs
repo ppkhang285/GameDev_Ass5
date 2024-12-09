@@ -21,13 +21,10 @@ public class GameplayManager : MonoBehaviour
     private void Awake()
     {
         if (Instance == null)
-        {
             Instance = this;
-        }
         else
-        {
             Destroy(gameObject);
-        }
+
         timeSinceLastSpawn = spawnInterval;
         enemySpawned = 0;
 
@@ -37,7 +34,7 @@ public class GameplayManager : MonoBehaviour
         types[2] = CharacterType.Minion;
         types[3] = CharacterType.Mage;
 
-        GameObject prefab = Resources.Load<GameObject>("Prefabs/Characters/Knight");
+        GameObject prefab = Resources.Load<GameObject>("Prefabs/Characters/" + GameManager.Instance.CharacterType);
         player = Instantiate(prefab);
 
         enemies = new List<GameObject>();
