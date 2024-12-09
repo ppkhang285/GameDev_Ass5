@@ -14,6 +14,8 @@ public class Character : MonoBehaviour
     public CharacterStats Stats;
     private PhotonView photonView;
     private float hp;
+
+    private Rigidbody rb;
     public float CurrentHP 
     { 
         get { return hp; }
@@ -50,6 +52,7 @@ public class Character : MonoBehaviour
     {
         photonView = GetComponent<PhotonView>();
         animator = GetComponent<Animator>();
+        rb = GetComponent<Rigidbody>();
 
         Stats = Instantiate(characterStats);
 
@@ -108,9 +111,25 @@ public class Character : MonoBehaviour
 
     public virtual void Move(float horizontal, float vertical)
     {
-        Vector3 direction = new Vector3(horizontal, 0, vertical).normalized;
+       // Vector3 direction = new Vector3(horizontal, 0, vertical).normalized;
+        
+        //transform.Translate(direction * Speed * Time.deltaTime, Space.Self);
+
+        Vector3 cameraForward = Camera.main.transform.forward;
+        Vector3 cameraRight = Camera.main.transform.right;
+
+       
+        cameraForward.y = 0;
+        cameraRight.y = 0;
+
+        cameraForward.Normalize();
+        cameraRight.Normalize();
+
+       
+        Vector3 direction = (cameraForward * vertical + cameraRight * horizontal).normalized;
+        rb.MovePosition(rb.position + direction * Speed * Time.deltaTime);
+
         animator.SetFloat("speed", direction.magnitude);
-        transform.Translate(direction * Speed * Time.deltaTime, Space.Self);
     }
 
     public virtual void Attack()
