@@ -30,7 +30,7 @@ public class Berserker : Character
         maxRage = 100;
         Rage = 0;
         rageIncreasePerHit = 0.25f;
-        rageDecreaseSpeed = 2;
+        rageDecreaseSpeed = 2 * Time.deltaTime;
     }
 
     // Update is called once per frame
@@ -50,7 +50,7 @@ public class Berserker : Character
 
     private void DecreaseRage() // Rage decreases when not attacking
     {
-        Rage -= rageDecreaseSpeed * Time.deltaTime;
+        Rage -= rageDecreaseSpeed;
     }
 
     private void BuffAttack()
