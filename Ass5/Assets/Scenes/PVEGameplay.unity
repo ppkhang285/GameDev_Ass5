@@ -11121,7 +11121,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 283710900}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 13.120433, y: 0.5004972, z: -5.858587}
+  m_LocalPosition: {x: 0, y: 0.5004972, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -13657,6 +13657,7 @@ MonoBehaviour:
   spawnLocations:
   - {fileID: 1498708650}
   - {fileID: 793798932}
+  itemPrefab: {fileID: 4612758784199046568, guid: e4b9cf46ac119764097ca4b600ebdafd, type: 3}
 --- !u!1001 &350014089
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -28704,7 +28705,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 793798932}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 44, y: 0, z: -30}
+  m_LocalPosition: {x: 28.96, y: 0, z: 22.97}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -53146,7 +53147,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1498708650}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -29, y: 0, z: -30}
+  m_LocalPosition: {x: -39.02, y: 0, z: 23.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

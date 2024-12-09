@@ -78,14 +78,7 @@ public class Character : MonoBehaviour
     {
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
-        if (horizontal != 0 || vertical != 0)
-        {
-            animator.SetBool("isRunning", true);
-            Move(horizontal, vertical);
-        }
-        else
-            animator.SetBool("isRunning", false);
-
+        Move(horizontal, vertical);
         if (Input.GetMouseButtonDown(0) && TimeSinceLastAttack >= AttackCooldown)
             Attack();
     }
@@ -93,6 +86,7 @@ public class Character : MonoBehaviour
     public virtual void Move(float horizontal, float vertical)
     {
         Vector3 direction = new Vector3(horizontal, 0, vertical).normalized * Speed * Time.deltaTime;
+        animator.SetFloat("speed", direction.normalized.magnitude);
         transform.Translate(direction, Space.Self);
     }
 
