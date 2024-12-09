@@ -24,7 +24,8 @@ public class LobbyController : MonoBehaviourPunCallbacks
         // Calculate the scaling factor for 16:10 aspect ratio
         scale = (Screen.width / (float)Screen.height) / (2.5f);
 
-        playerName = "Player" + Random.Range(1, MAX_PLAYER);
+        string randomNickname = "Player_" + Random.Range(1000, 9999);
+        PhotonNetwork.NickName = randomNickname;
         PhotonNetwork.AutomaticallySyncScene = true;
 
         if (!PhotonNetwork.IsConnected)
@@ -77,7 +78,7 @@ public class LobbyController : MonoBehaviourPunCallbacks
                 {
                     IsOpen = true,
                     IsVisible = true,
-                    MaxPlayers = MAX_PLAYER / Max_PLAYER_ROOM
+                    MaxPlayers = MAX_PLAYER
                 };
                 PhotonNetwork.JoinOrCreateRoom(roomName, option, TypedLobby.Default);
             }
