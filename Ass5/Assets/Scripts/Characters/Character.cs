@@ -135,6 +135,10 @@ public class Character : MonoBehaviour
             {
                 (damager as Berserker).HitTarget();
             }
+        } else if (other.CompareTag("Item"))
+        {
+            Item item = other.gameObject.GetComponent<Item>();
+            item.OnPickup(this);
         }
     }
 }

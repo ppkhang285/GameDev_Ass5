@@ -60,6 +60,7 @@ public class GameplayManager : MonoBehaviour
     void Update()
     {
         timeSinceLastEnemySpawn += Time.deltaTime;
+        timeSinceLastItemSpawn += Time.deltaTime;
         //SpawnEnemy();
         SpawnItem();
     }
@@ -83,7 +84,9 @@ public class GameplayManager : MonoBehaviour
     {
         if (timeSinceLastItemSpawn >= itemSpawnInterval)
         {
-            GameObject item = Instantiate(itemPrefab);
+            float x = Random.Range(-27, 45);
+            float z = Random.Range(-29, 19);
+            GameObject item = Instantiate(itemPrefab, new Vector3(x, 0, z), itemPrefab.transform.rotation);
             items.Add(item);
             timeSinceLastItemSpawn = 0;
         }
