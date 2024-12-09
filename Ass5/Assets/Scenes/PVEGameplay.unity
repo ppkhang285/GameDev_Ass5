@@ -13672,7 +13672,7 @@ MonoBehaviour:
   spawnLocations:
   - {fileID: 1498708650}
   - {fileID: 793798932}
-  itemPrefab: {fileID: 4612758784199046568, guid: e4b9cf46ac119764097ca4b600ebdafd, type: 3}
+  itemPrefab: {fileID: 7718288539791697641, guid: 4188685626ea43b46b29a36483121ee9, type: 3}
 --- !u!1001 &350014089
 PrefabInstance:
   m_ObjectHideFlags: 0

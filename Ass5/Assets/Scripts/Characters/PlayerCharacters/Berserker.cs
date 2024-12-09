@@ -27,10 +27,10 @@ public class Berserker : Character
         ability = Stats.GetInstantiatedAbility() as FullBurst;
         ability.Initialize(this);
 
-        maxRage = 6;
+        maxRage = 10;
         Rage = 0;
-        rageIncreasePerHit = 0.25f;
-        rageDecreaseSpeed = 2;
+        rageIncreasePerHit = 0.5f;
+        rageDecreaseSpeed = 1;
     }
 
     // Update is called once per frame
@@ -41,6 +41,7 @@ public class Berserker : Character
             ability.Activate();
         DecreaseRage();
         BuffAttack();
+        GameplayManager.Instance.hudManager.UpdateSpecialHUD(Rage, maxRage);
     }
 
     public override void Move(float horizontal, float vertical)

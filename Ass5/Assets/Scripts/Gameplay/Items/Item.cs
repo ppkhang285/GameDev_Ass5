@@ -6,6 +6,6 @@ public class Item : MonoBehaviour
 {
     public virtual void OnPickup(Character player)
     {
-        Destroy(gameObject); 
+        gameObject.SetActive(false);
     }
 }

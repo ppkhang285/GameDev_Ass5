@@ -19,7 +19,7 @@ public class Salvation : Ability
         base.Initialize(character);
         wizardCharacter = character as Wizard;
 
-        healAmount = 0.1f; 
+        healAmount = 2f; 
         manaRefillBuff = 1.2f;
         speedBuff = 1.2f;
         damageReduced = 0.1f;
@@ -47,6 +47,6 @@ public class Salvation : Ability
 
     private void Heal()
     {
-        character.CurrentHP += healAmount;
+        character.CurrentHP += healAmount * Time.deltaTime;
     }
 }

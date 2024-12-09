@@ -40,6 +40,8 @@ public class Knight : Character
         timeSinceBlock += Time.deltaTime;
         base.Update();
         RecoverShield();
+        transform.Find("handslot.I").gameObject.SetActive(shieldEndurance > 0);
+        GameplayManager.Instance.hudManager.UpdateSpecialHUD(shieldEndurance, shieldMaxEndurance);
     }
 
     protected override void HandleInput()

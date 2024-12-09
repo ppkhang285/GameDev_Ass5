@@ -44,6 +44,7 @@ public class Wizard : Character
     {
         base.Update();
         RefillMana();
+        GameplayManager.Instance.hudManager.UpdateSpecialHUD(CurrentMana, maxMana);
     }
 
     protected override void HandleInput()

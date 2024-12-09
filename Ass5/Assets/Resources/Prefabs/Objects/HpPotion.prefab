@@ -55,5 +55,27 @@ PrefabInstance:
       propertyPath: m_Name
       value: HpPotion
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 52ecc718d8aea744a891d31c4418efea, type: 3}
+      propertyPath: m_TagString
+      value: Item
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 52ecc718d8aea744a891d31c4418efea, type: 3}
+--- !u!1 &7718288539791697641 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 52ecc718d8aea744a891d31c4418efea, type: 3}
+  m_PrefabInstance: {fileID: 7484339749785541560}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &2130539237937866593
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7718288539791697641}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.0024712, y: 1.1813238, z: 1.0024711}
+  m_Center: {x: 0, y: 0.5906619, z: 0.000000059604645}
