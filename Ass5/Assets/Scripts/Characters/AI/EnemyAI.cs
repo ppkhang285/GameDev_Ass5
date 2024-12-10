@@ -136,7 +136,7 @@ public class EnemyAI : MonoBehaviour
     {
         if (other.CompareTag("Missile"))
         {
-            float damage = ArrowManager.Instance.NotifyArrowHit(other.gameObject);
+            float damage = ArrowManager.Instance.NotifyArrowHit(other.gameObject, gameObject);
             TakeDamage(damage);
         }
         else if (other.CompareTag("Melee"))

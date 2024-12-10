@@ -43,22 +43,17 @@ public class NetworkGameplayManager : MonoBehaviour
 
     void SpawnNetworkPlayer()
     {
-        // Define a central spawn position
-        Vector3 centerSpawnPosition = Vector3.zero; // Replace with the desired central position, e.g., new Vector3(0, 0, 0)
-        
-        // Instantiate the player prefab using PhotonNetwork.Instantiate
-        GameObject networkPlayer = PhotonNetwork.Instantiate(playerPrefabName, centerSpawnPosition, spawnRotation);
-        
-        // Add the network player to the players list
         int playerIndex = PhotonNetwork.LocalPlayer.ActorNumber;
+        Vector3 spawnPosition = spawnLocations[playerIndex - 1].transform.position;
+        GameObject networkPlayer = PhotonNetwork.Instantiate(playerPrefabName, spawnPosition, spawnRotation);
         players[playerIndex - 1] = networkPlayer;
 
         // If the player instance belongs to the local player, set up the camera and HUD
         if (networkPlayer.GetComponent<PhotonView>().IsMine)
         {
             // Setup camera and HUD for the local player
-            cameraManager.Setup(networkPlayer.transform);
-            hudManager.Setup(networkPlayer.GetComponent<Character>());
+            //cameraManager.Setup(networkPlayer.transform);
+            //hudManager.Setup(networkPlayer.GetComponent<Character>());
         }
     }
 }
