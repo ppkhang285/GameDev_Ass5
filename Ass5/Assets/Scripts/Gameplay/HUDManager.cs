@@ -53,6 +53,9 @@ public class HUDManager : MonoBehaviour
     {
         if (currentHp < 0) currentHp = 0;
         hpBar.value = currentHp / maxHp;
+
+        currentHp = Mathf.Ceil(currentHp);
+        maxHp = Mathf.Ceil(maxHp);
         hpText.text = currentHp.ToString() + " / " + maxHp.ToString();
     }
 

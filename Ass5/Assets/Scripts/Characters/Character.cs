@@ -66,6 +66,9 @@ public class Character : MonoBehaviourPunCallbacks, IPunObservable
         AttackCooldown = Stats.attackCooldown;
         TimeSinceLastAttack = AttackCooldown;
         isDead = false;
+
+        //
+        //ChangeReloadSpeed(5);
     }
 
     protected virtual void Update()
@@ -84,9 +87,10 @@ public class Character : MonoBehaviourPunCallbacks, IPunObservable
             UpdateLocalPlayer();
     }
 
-    private void ChangeAnimTime(string animName, float time)
+    private void ChangeReloadSpeed(float time)
     {
-
+        float speed = time / 1.6f;
+        animator.SetFloat("reloadTime", speed);
     }
 
     private void UpdateLocalPlayer()
