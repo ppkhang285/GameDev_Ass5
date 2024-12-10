@@ -40,7 +40,6 @@ public class Knight : Character
         timeSinceBlock += Time.deltaTime;
         base.Update();
         RecoverShield();
-        transform.Find("handslot.I").gameObject.SetActive(shieldEndurance > 0);
         GameplayManager.Instance.hudManager.UpdateSpecialHUD(shieldEndurance, shieldMaxEndurance);
     }
 
@@ -53,6 +52,7 @@ public class Knight : Character
             {
                 timeSinceBlock = 0;
                 Block();
+                animator.SetTrigger("block");
             }
             else if (Input.GetMouseButton(1))
                 Block();
@@ -71,6 +71,7 @@ public class Knight : Character
 
     public override void TakeDamage(float damage)
     {
+        Debug.Log(damage);
         float newDamage = damage;
         if (isBlocking)
         {
@@ -86,20 +87,24 @@ public class Knight : Character
         {
             if ((timeSinceBlock <= timeForGuardPoint) & !ability.abilityIsActivated)
                 ability.Activate();
-        } 
+        }
+        base.OnTriggerEnter(other);
     }
 
     private void Block()
     {
         isBlocking = true;
         Speed = Stats.speed / shieldSpeedReduced;
-       // animator.Play("Block");
+        // animator.Play("Block");
+        animator.SetBool("isBlocking", true);
     }
 
     private void Unblock()
     {
         isBlocking = false;
         Speed = Stats.speed;
+        animator.SetBool("isBlocking", false);
+        //animator.Play("Moving");
     }
 
     private void RecoverShield()
