@@ -66,8 +66,6 @@ public class Character : MonoBehaviourPunCallbacks, IPunObservable
         AttackCooldown = Stats.attackCooldown;
         TimeSinceLastAttack = AttackCooldown;
         isDead = false;
-
-        
     }
 
     protected virtual void Update()
@@ -75,9 +73,7 @@ public class Character : MonoBehaviourPunCallbacks, IPunObservable
         if (GameManager.Instance.isPvP)
         {
             if (photonView.IsMine)
-            {
                 UpdateLocalPlayer();
-            }
             else
             {
                 transform.position = Vector3.Lerp(transform.position, networkPosition, Time.deltaTime * 10);
@@ -85,9 +81,7 @@ public class Character : MonoBehaviourPunCallbacks, IPunObservable
             }
         }
         else
-        {
             UpdateLocalPlayer();
-        }
     }
 
     private void UpdateLocalPlayer()
@@ -161,13 +155,6 @@ public class Character : MonoBehaviourPunCallbacks, IPunObservable
         animator.SetTrigger("attack");
     }
 
-    [PunRPC]
-    private void NetworkAttack()
-    {
-        TimeSinceLastAttack = 0;
-        animator.SetTrigger("attack");
-    }
-
     public virtual void TakeDamage(float damage)
     {
         if (GameManager.Instance.isPvP && photonView.IsMine)
@@ -176,22 +163,6 @@ public class Character : MonoBehaviourPunCallbacks, IPunObservable
         animator.SetTrigger("hit");
         CurrentHP -= damage * (1 - Resistence);
 
-        GameplayManager.Instance.hudManager.UpdateHpHUD(CurrentHP, Stats.hp);
-        if (CurrentHP <= 0)
-            Die();
-    }
-
-    [PunRPC]
-    private void UpdateHP(float newHP)
-    {
-        hp = newHP;
-    }
-
-    [PunRPC]
-    private void NetworkTakeDamage(float damage)
-    {
-        animator.SetTrigger("hit");
-        CurrentHP -= damage * (1 - Resistence);
         GameplayManager.Instance.hudManager.UpdateHpHUD(CurrentHP, Stats.hp);
         if (CurrentHP <= 0)
             Die();
@@ -263,5 +234,28 @@ public class Character : MonoBehaviourPunCallbacks, IPunObservable
             Item item = other.gameObject.GetComponent<Item>();
             item.OnPickup(this);
         }
+    }
+
+    [PunRPC]
+    public void UpdateHP(float newHP)
+    {
+        hp = newHP;
+    }
+
+    [PunRPC]
+    public void NetworkAttack()
+    {
+        TimeSinceLastAttack = 0;
+        animator.SetTrigger("attack");
+    }
+
+    [PunRPC]
+    public void NetworkTakeDamage(float damage)
+    {
+        animator.SetTrigger("hit");
+        CurrentHP -= damage * (1 - Resistence);
+        GameplayManager.Instance.hudManager.UpdateHpHUD(CurrentHP, Stats.hp);
+        if (CurrentHP <= 0)
+            Die();
     }
 }

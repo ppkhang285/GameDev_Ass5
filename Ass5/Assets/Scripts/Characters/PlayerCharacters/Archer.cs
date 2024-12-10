@@ -33,8 +33,11 @@ public class Archer : Character
         if ((targetHits >= hitsForPierceShot) & !ability.abilityIsActivated)
             ability.Activate();
         ReloadAmmo();
-        GameplayManager.Instance.hudManager.UpdateSpecialHUD(currentAmmo, ammoPerRound);
-    }
+        if (GameManager.Instance.isPvP)
+            NetworkGameplayManager.Instance.hudManager.UpdateSpecialHUD(currentAmmo, ammoPerRound);
+        else
+            GameplayManager.Instance.hudManager.UpdateSpecialHUD(currentAmmo, ammoPerRound);
+    }   
 
     public override void Attack()
     {

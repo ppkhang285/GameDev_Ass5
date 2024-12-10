@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Berserker's Full Burst
   m_EditorClassIdentifier: 
   AbilityName: Full Burst
-  duration: 3.5
+  duration: 5
   abilityIsActivated: 0

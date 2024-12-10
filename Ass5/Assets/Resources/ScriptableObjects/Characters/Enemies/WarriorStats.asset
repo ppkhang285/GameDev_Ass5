@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31f899cace0e0de428194641be1d26fa, type: 3}
   m_Name: WarriorStats
   m_EditorClassIdentifier: 
-  hp: 100
-  damage: 10
-  attackRange: 5
-  speed: 4
+  hp: 50
+  damage: 1.5
+  attackRange: 3
+  speed: 2.5
   jumpHeight: 0
   attackCooldown: 1
   resistence: 0

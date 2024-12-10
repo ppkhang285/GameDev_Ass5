@@ -1,4 +1,5 @@
 using Cinemachine;
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,12 +9,18 @@ public class CameraManager : MonoBehaviour
 
     [SerializeField] private CinemachineVirtualCamera _virtualCamera;
 
+    private PhotonView photonView;
+
     private float upThreshhold = 5;
     private float downThreshhold = -2;
 
     void Start()
     {
-        Setup();    
+        photonView = GetComponent<PhotonView>();
+        if (GameManager.Instance.isPvP)
+            Setup(NetworkGameplayManager.Instance.players[PhotonNetwork.LocalPlayer.ActorNumber - 1].transform);
+        else
+            Setup(GameplayManager.Instance.player.transform);    
     }
 
     private void Update()
@@ -32,9 +39,11 @@ public class CameraManager : MonoBehaviour
         transposer.m_TrackedObjectOffset = newOffset;
 
     }
-    private void Setup()
+
+    public void Setup(Transform player)
     {
-        Transform playerTrans = GameplayManager.Instance.player.transform;
+        if (GameManager.Instance.isPvP && !photonView.IsMine) return;
+        Transform playerTrans = player;
 
         _virtualCamera.LookAt = playerTrans;
         _virtualCamera.Follow = playerTrans;

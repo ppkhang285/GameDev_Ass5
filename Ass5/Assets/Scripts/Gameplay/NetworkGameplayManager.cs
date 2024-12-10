@@ -1,18 +1,34 @@
 using Photon.Pun;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class NetworkGameplayManager : MonoBehaviour
 {
+    public static NetworkGameplayManager Instance { get; private set; }
+
     public string playerPrefabName = "Prefabs/Characters/Knight"; // Path to the player prefab in Resources folder
-    public Vector3 spawnPoint1 = new Vector3(5, 0, 0); // Position for Player 1
-    public Vector3 spawnPoint2 = new Vector3(-5, 0, 0); // Opposite position for Player 2
     public Quaternion spawnRotation = Quaternion.identity; // Default rotation for players
 
-    public Camera mainCamera; // Reference to the main camera
-    public Vector3 cameraOffset = new Vector3(0, 3, -10); // Camera offset to follow the player
+    public CameraManager cameraManager;
+    public HUDManager hudManager;
 
-    void Start()
+    [SerializeField]
+    private List<GameObject> spawnLocations;
+
+    public List<GameObject> players = new List<GameObject>();
+
+    void Awake()
     {
+        if (Instance == null)
+            Instance = this;
+        else
+            Destroy(gameObject);
+
+        for (int i = 0; i < 2; i++)
+        {
+            players.Add(null);
+        }
+
         Debug.Log($"Joined Room: {PhotonNetwork.CurrentRoom.Name}, Player Count: {PhotonNetwork.CurrentRoom.PlayerCount}");
         if (PhotonNetwork.IsConnected && PhotonNetwork.InRoom)
         {
@@ -30,28 +46,16 @@ public class NetworkGameplayManager : MonoBehaviour
         int playerIndex = PhotonNetwork.LocalPlayer.ActorNumber;
 
         // Set spawn position based on the player's actor number (1 or 2)
-        Vector3 spawnPosition = (playerIndex == 1) ? spawnPoint1 : spawnPoint2;
+        Vector3 spawnPosition = spawnLocations[playerIndex - 1].transform.position;
 
         // Instantiate the player prefab using PhotonNetwork.Instantiate
         GameObject networkPlayer = PhotonNetwork.Instantiate(playerPrefabName, spawnPosition, spawnRotation);
-
-        Debug.Log($"Network player {playerIndex} spawned at position {spawnPosition}");
-
-        // If this is the local player's character, move the camera to follow it
+        players[playerIndex - 1] = networkPlayer;
         if (networkPlayer.GetComponent<PhotonView>().IsMine)
         {
-            SetCameraFollow(networkPlayer.transform);
+            //cameraManager.Setup(networkPlayer.transform);
+            //hudManager.Setup(networkPlayer.GetComponent<Character>());
+            
         }
-    }
-
-    void SetCameraFollow(Transform playerTransform)
-    {
-        if (mainCamera == null) return;
-
-        // Position the camera based on the player's position and offset
-        mainCamera.transform.position = playerTransform.position + cameraOffset;
-
-        // Make the camera look at the player
-        mainCamera.transform.LookAt(playerTransform);
     }
 }

@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31f899cace0e0de428194641be1d26fa, type: 3}
   m_Name: RogueStats
   m_EditorClassIdentifier: 
-  hp: 100
-  damage: 10
-  attackRange: 5
+  hp: 40
+  damage: 2
+  attackRange: 2
   speed: 4
   jumpHeight: 0
   attackCooldown: 1

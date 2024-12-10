@@ -40,7 +40,10 @@ public class Knight : Character
         timeSinceBlock += Time.deltaTime;
         base.Update();
         RecoverShield();
-        GameplayManager.Instance.hudManager.UpdateSpecialHUD(shieldEndurance, shieldMaxEndurance);
+        if (GameManager.Instance.isPvP)
+            NetworkGameplayManager.Instance.hudManager.UpdateSpecialHUD(shieldEndurance, shieldMaxEndurance);
+        else
+            GameplayManager.Instance.hudManager.UpdateSpecialHUD(shieldEndurance, shieldMaxEndurance);
     }
 
     protected override void HandleInput()

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hp: 100
   damage: 10
-  attackRange: 5
+  attackRange: 2
   speed: 4
   jumpHeight: 0
   attackCooldown: 1

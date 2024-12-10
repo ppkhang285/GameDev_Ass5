@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: Wizard's Salvation
   m_EditorClassIdentifier: 
   AbilityName: Salvation
-  Cooldown: 0
+  duration: 15
+  abilityIsActivated: 0

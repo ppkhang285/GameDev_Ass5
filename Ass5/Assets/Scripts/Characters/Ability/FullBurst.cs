@@ -39,7 +39,7 @@ public class FullBurst : Ability
     {
         base.Deactivate();
         berserkerCharacter.Rage = 0;
-        berserkerCharacter.animator.SetTrigger("hit");
+        berserkerCharacter.animator.Play("Moving");
     }
 
 

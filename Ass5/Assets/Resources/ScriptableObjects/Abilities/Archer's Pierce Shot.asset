@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: Archer's Pierce Shot
   m_EditorClassIdentifier: 
   AbilityName: Pierce Shot
-  Cooldown: 0
+  duration: 10
+  abilityIsActivated: 0
