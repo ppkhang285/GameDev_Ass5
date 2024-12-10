@@ -90,6 +90,11 @@ public class Character : MonoBehaviourPunCallbacks, IPunObservable
         }
     }
 
+    private void ChangeAnimTime(string animName, float time)
+    {
+
+    }
+
     private void UpdateLocalPlayer()
     {
         if (isDead)
