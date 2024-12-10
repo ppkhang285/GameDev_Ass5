@@ -25,6 +25,7 @@ public class Archer : Character
         timeSinceReload = 0;
         targetHits = 0;
         hitsForPierceShot = 5;
+        ChangeReloadSpeed(reloadTime);
     }
     
     protected override void Update()
@@ -74,5 +75,11 @@ public class Archer : Character
         }
     }
 
-    
+    private void ChangeReloadSpeed(float time)
+    {
+        float speed = time / 1.6f;
+        animator.SetFloat("reloadTime", speed);
+    }
+
+
 }

@@ -86,10 +86,12 @@ public class ArrowManager : MonoBehaviour
         arrowMap.Remove(arrowObject);
     }
 
-    public float NotifyArrowHit(GameObject arrowObject)
+    public float NotifyArrowHit(GameObject arrowObject, GameObject target)
     {
         if (arrowMap.TryGetValue(arrowObject, out Arrow arrow))
         {
+            if (target == arrow.archer.gameObject)
+                return 0;
             if (!arrow.isPierce)
                 arrow.Deactivate();
             arrow.archer.HitTarget();

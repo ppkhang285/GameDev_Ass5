@@ -87,12 +87,6 @@ public class Character : MonoBehaviourPunCallbacks, IPunObservable
             UpdateLocalPlayer();
     }
 
-    private void ChangeReloadSpeed(float time)
-    {
-        float speed = time / 1.6f;
-        animator.SetFloat("reloadTime", speed);
-    }
-
     private void UpdateLocalPlayer()
     {
         if (isDead)
@@ -218,7 +212,7 @@ public class Character : MonoBehaviourPunCallbacks, IPunObservable
 
         if (other.CompareTag("Missile"))
         {
-            float damage = ArrowManager.Instance.NotifyArrowHit(other.gameObject);
+            float damage = ArrowManager.Instance.NotifyArrowHit(other.gameObject, gameObject);
             TakeDamage(damage);
         }
         else if (other.CompareTag("Melee"))
