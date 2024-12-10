@@ -18,7 +18,11 @@ public class RoomController : MonoBehaviourPunCallbacks
         }
         LogAllPlayersInRoom();
         //We're in a room. spawn a character for the local player. it gets synced by using PhotonNetwork.Instantiate
-        StartCoroutine(DelayedPlayerInstantiation());
+        // StartCoroutine(DelayedPlayerInstantiation());
+    }
+    public void StartGame()
+    {
+        PhotonNetwork.LoadLevel("PVPGameplay");
     }
     public void LogAllPlayersInRoom()
     {
@@ -63,5 +67,10 @@ public class RoomController : MonoBehaviourPunCallbacks
     public override void OnLeftRoom()
     {
         UnityEngine.SceneManagement.SceneManager.LoadScene(lobbyScene);
+    }
+    public void OnChooseCharacter(string characterType)
+    {
+        GameManager.Instance.CharacterType = characterType;
+        Debug.Log("player char: "+characterType);
     }
 }
