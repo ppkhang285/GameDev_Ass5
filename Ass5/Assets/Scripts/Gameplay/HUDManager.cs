@@ -1,3 +1,4 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -21,18 +22,22 @@ public class HUDManager : MonoBehaviour
 
     void Start()
     {
-        Setup();
+        if (GameManager.Instance.isPvP)
+            Setup(NetworkGameplayManager.Instance.players[PhotonNetwork.LocalPlayer.ActorNumber - 1].GetComponent<Character>());
+        else
+            Setup(GameplayManager.Instance.player.GetComponent<Character>());
     }
 
-    private void Setup()
+    public void Setup(Character character)
     {
         settingButton.onClick.AddListener(OnSettingBtn);
         continueButton.onClick.AddListener(OnContinueBtn);
         exitButton.onClick.AddListener(OnExitBtn);
 
         //
-        float Hp = GameplayManager.Instance.player.GetComponent<Character>().CurrentHP;
-        UpdateHpHUD(Hp, Hp);
+
+        float Hp = character.CurrentHP;
+        UpdateHpHUD(Hp, Hp);        
     }
 
     public void OpenSettingPanel()

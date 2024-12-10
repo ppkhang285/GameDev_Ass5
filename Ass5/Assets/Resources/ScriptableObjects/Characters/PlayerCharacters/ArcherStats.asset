@@ -15,9 +15,9 @@ MonoBehaviour:
   hp: 80
   damage: 8
   attackRange: 60
-  speed: 3
+  speed: 4.5
   jumpHeight: 0
   attackCooldown: 1
-  resistence: 0.9
+  resistence: 0.02
   charType: 2
   ability: {fileID: 11400000, guid: a9fd9a08099bf774283eb14ba302d77b, type: 2}

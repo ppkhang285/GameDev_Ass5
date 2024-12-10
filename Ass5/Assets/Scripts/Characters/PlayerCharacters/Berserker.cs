@@ -41,7 +41,10 @@ public class Berserker : Character
             ability.Activate();
         DecreaseRage();
         BuffAttack();
-        GameplayManager.Instance.hudManager.UpdateSpecialHUD(Rage, maxRage);
+        if (GameManager.Instance.isPvP)
+            NetworkGameplayManager.Instance.hudManager.UpdateSpecialHUD(Rage, maxRage);
+        else
+            GameplayManager.Instance.hudManager.UpdateSpecialHUD(Rage, maxRage);
     }
 
     public override void Move(float horizontal, float vertical)

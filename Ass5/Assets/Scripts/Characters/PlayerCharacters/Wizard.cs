@@ -44,7 +44,10 @@ public class Wizard : Character
     {
         base.Update();
         RefillMana();
-        GameplayManager.Instance.hudManager.UpdateSpecialHUD(CurrentMana, maxMana);
+        if (GameManager.Instance.isPvP)
+            NetworkGameplayManager.Instance.hudManager.UpdateSpecialHUD(CurrentMana, maxMana);
+        else
+            GameplayManager.Instance.hudManager.UpdateSpecialHUD(CurrentMana, maxMana);
     }
 
     protected override void HandleInput()
